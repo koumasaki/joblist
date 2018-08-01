@@ -1,17 +1,8 @@
 @extends('layouts.admin_app')
 
-@section('title', ' | Login')
-
+@section('title', ' Sign up')
 
 @section('content')
-    @if (Auth::check())
-    <div class="row">
-        <div class="col-md-12">
-            <h1>{{ Auth::user()->company }}でログイン中</h1>
-            <hr>
-        </div>
-    </div>
-    @else
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="text-center mb20">
@@ -33,5 +24,4 @@
             {!! Form::close() !!}
         </div>
     </div>
-    @endif
 @endsection
