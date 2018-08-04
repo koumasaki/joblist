@@ -8,16 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/admin">管理者画面</a>
+                <a class="navbar-brand" href="/{{ $user->display_url }}">{{ $user->company }}</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    @if (Auth::check())
-                        <li>{!! link_to_route('signup.get', '新規ユーザー登録') !!}</li>
-                        <li>{!! link_to_route('admin_logout.get', 'Logout') !!}</li>
-                    @else
-                        <li>{!! link_to_route('admin.login', 'Login') !!}</li>
-                    @endif
+                    <li><a href="#">会社情報</a></li>
+                    <li><a href="#">サービス</a></li>
+                    <li><a href="#">募集要項</a></li>
                 </ul>
             </div>
         </div>

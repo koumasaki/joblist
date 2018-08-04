@@ -1,24 +1,15 @@
-@extends('layouts.users_app')
+@extends('layouts.admin_app')
 
-@section('title', ' | TOPページ')
-
+@section('title', ' Sign up')
 
 @section('content')
-    @if (Auth::check())
-    <div class="row">
-        <div class="col-md-12">
-            <h1>{{ Auth::user()->company }}でログイン中</h1>
-            <hr>
-        </div>
-    </div>
-    @else
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="text-center mb20">
-                <h1>TOPログイン</h1>
+                <h1>管理ログイン</h1>
                 <hr>
             </div>
-            {!! Form::open(['route' => 'login.post']) !!}
+            {!! Form::open(['route' => 'admin_login.post']) !!}
                 <div class="form-group @if(!empty($errors->first('email'))) has-error @endif">
                     {!! Form::label('email', 'Eメール:') !!}
                     {!! Form::text('email', old('email'), ['class'=>'form-control']) !!}
@@ -33,5 +24,4 @@
             {!! Form::close() !!}
         </div>
     </div>
-    @endif
 @endsection

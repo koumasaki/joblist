@@ -11,26 +11,56 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// ユーザ登録
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
-Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+/*
+|--------------------------------------------------------------------------
+| 1) User 認証不要
+|--------------------------------------------------------------------------
+*/
+Route::get('/', function() { return view('welcome'); });
 
 // ログイン認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
-Route::group(['middleware' => ['auth']], function () {
-    //サインアップ後
-    Route::get('/', 'UsersController@view_all');
-    Route::delete('/{id}', 'UsersController@destroy')->name('user.delete');
-    
+
+/*
+|--------------------------------------------------------------------------
+| 2) User ログイン後
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
+
     //管理画面
+    Route::get('/', function() { return view('users.index'); });
     Route::get('/{id}', 'UsersController@show')->name('user.show');
     Route::get('/{id}/edit', 'UsersController@edit')->name('user.edit');
     Route::put('/{id}', 'UsersController@update')->name('user.update');
 });
+
+/*
+|--------------------------------------------------------------------------
+| 3) Admin 認証不要
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'admin'], function() {
+    // ログイン認証
+    Route::get('/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Admin\LoginController@login')->name('admin_login.post');
+    Route::get('/logout', 'Admin\LoginController@logout')->name('admin_logout.get');
+});
+/*
+|--------------------------------------------------------------------------
+| 4) Admin ログイン後
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () {
+    Route::get('/', 'Admin\UsersController@view_all');
+    Route::delete('/{id}', 'Admin\UsersController@destroy')->name('user.delete');
+    // ユーザ登録
+    Route::get('/signup', 'Admin\UsersController@user_create')->name('signup.get');
+    Route::post('/signup', 'Admin\UsersController@user_store')->name('signup.post');
+});
+
+//個社TOP
+Route::get('/{display_url}', 'HomeController@company')->name('homme.company');
