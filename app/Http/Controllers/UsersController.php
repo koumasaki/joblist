@@ -51,13 +51,29 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->email = $request->email;
         $user->name = $request->name;
+        $user->zip = $request->zip;
+        $user->address = $request->address;
+        $user->tel = $request->tel;
+        $user->section = $request->section;
+        $user->catch_copy = $request->catch_copy;
+        $user->company_copy = $request->company_copy;
+        $user->company_summary = $request->company_summary;
+        $user->establishment = $request->establishment;
+        $user->capitalstock = $request->capitalstock;
+        $user->number = $request->number;
+        $user->president = $request->president;
+        $user->site_url = $request->site_url;
+        $user->privacy_url = $request->privacy_url;
+        $user->service_copy = $request->service_copy;
+        $user->service_summary = $request->service_summary;
+        $user->copyright = $request->copyright;
         
         //メイン画像
         if($request->hasFile('main_image')) {
             $image = $request->file('main_image');
             $filename = $user->display_url . '_' . time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('images/main_image/'. $filename);
-            Image::make($image)->resize(300, null, function ($constraint) {
+            Image::make($image)->resize(1600, null, function ($constraint) {
                 $constraint->aspectRatio();})->save($location);
             
             $user->main_image = $filename;
@@ -66,7 +82,7 @@ class UsersController extends Controller
         if($request->hasFile('logo_image')) {
             $image_logo = $request->file('logo_image');
             $filename_logo = $user->display_url . '_' . time() . '.' . $image_logo->getClientOriginalExtension();
-            $location_logo = public_path('images/logo/'. $filename_logo);
+            $location_logo = public_path('images/logo/'. $filename_logo);  // S3を使う雑な例： Storage('local')->put('filepath', 'データ', 'public')
             Image::make($image_logo)->save($location_logo);
             
             $user->logo_image = $filename_logo;

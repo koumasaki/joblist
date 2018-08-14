@@ -1,8 +1,211 @@
 @charset "utf-8";
 /* CSS Document */
 
-/*----------　テキスト　------------*/
+/*----------　追加　------------*/
+#main_img_flame {
+    width: 100%;
+    height: 0;
+    padding-bottom: 33.3%;
+    overflow: hidden;
+    margin: 0 auto 40px auto;
+    position: relative;
+}
+#cover {
+    background-color: rgba(0,0,0,0.3);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+#inner_img {
+    position: absolute;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);  
+    -moz-transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 0;
+}
+#copy {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-40%);
+    -webkit-transform: translate(-50%,-40%);
+    -moz-transform: translate(-50%,-40%);
+    font-family: "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+    font-size: 3.2vw;
+    font-weight: normal;
+    white-space: nowrap;
+    color: #FFF;
+    z-index: 2;
+}
+.logo {
+    background: url(../images/common/logo_back.jpg) no-repeat center bottom;
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+}
+.catch_copy {
+    font-family: "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
+    font-size: 2.5vw;
+}
+.service_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 60%;
+    overflow: hidden;
+    margin: 0 auto 20px auto;
+    position: relative;
+}
+.h4_title {
+    font-weight: bold;
+    font-size: 17px;
+    color: #0085B2;
+}
 
+.gray_flame {
+    background-color: #F8F8F8;
+    padding: 30px 0 0 0 ;
+}
+
+.job_flame {
+    border-top: solid 4px #bbb;
+    border-bottom: solid 1px #ccc;
+    border-right: solid 1px #ccc;
+    border-left: solid 1px #ccc;
+    margin-bottom: 40px;
+}
+.job_flame_header {
+    background-color: #F6F6F6;
+    margin-bottom: 1px;
+    padding: 15px 20px;
+}
+.job_copy {
+    font-size: 13px;
+    line-height: 100%;
+    margin-bottom: 8px;
+}
+.job_flame_header h3 {
+    margin: 0;
+    line-height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0059B2;
+}
+.job_flame_body {
+    border-top: solid 1px #F6F6F6;
+    border-bottom: solid 1px #ccc;
+    padding: 15px 20px 30px 20px;
+}
+.job_img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 66%;
+    overflow: hidden;
+    margin: 10px auto 0 auto;
+    position: relative;
+}
+.job_flame_footer {
+    padding: 15px 20px 15px 20px;
+    overflow: hidden;
+}
+.btn_detail {
+    float: left;
+    margin-right: 5px;
+}
+.btn_entry {float: left;}
+.update {
+    float: right;
+    margin-top: 15px;
+}
+
+footer {
+    border-top: solid 1px #ccc;
+    padding-top: 45px;
+    margin: 0 auto;
+}
+.f_navi_flame {
+    background-color: #979797;
+    color: #fff;
+    padding: 8px 20px 3px 20px;
+    overflow: hidden;
+}
+.f_navi {
+    float: left;
+    display: block;
+    list-style: none;
+    padding: 0;
+    font-size: 13px;
+}
+.f_navi li {
+    float: left;
+    background: url(../images/common/list_fnavi.png) no-repeat left 7px;
+    padding-left: 14px;
+    margin-right: 15px;
+}
+.f_navi li:last-of-type { margin-right: 0;}
+.f_navi li a { color: #fff; }
+.copyright {
+    float: right;
+    font-size: 10px;
+}
+
+@media screen and (max-width: 768px) {
+.catch_copy {
+    font-size: 3.2vw;  
+}
+.job_img {
+    width: 85%;
+    padding-bottom: 56%;
+    margin: 30px auto 0 auto;
+}
+
+.f_navi_flame {
+    padding: 15px 20px 10px 20px;
+}
+.outer_navi {
+	text-align: center;
+}
+.inner_navi {
+	display: inline-block;
+	text-align: left;
+	overflow: hidden;
+}
+.copyright {
+    float: none;
+    text-align: center;
+}
+}
+
+
+@media screen and (max-width: 480px) {
+.job_img {
+    width: 100%;
+    padding-bottom: 66%;
+}
+.btn_detail {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+    margin: 0 auto 8px auto;
+    text-align: center;
+    background-color: #666666;
+}
+.btn_entry {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+    margin: 0 auto 8px auto;
+    text-align: center;
+    background-color: #D90000;
+}
+}
+
+
+/*----------　テキスト　------------*/
 .fs10 {font-size:10px;}
 .fs11 {font-size:11px;}
 .fs12 {font-size:12px;}
@@ -56,89 +259,56 @@
 .br_sp { display: inline; }
 }
 
-/* --保留
-.table, .table-stripe, .table-side {
+.table-narrow, .table-wide {
 	width: 100%;
 	margin-right: auto;
 	margin-left: auto;
 	border-collapse: collapse;
 }
-.table th {
+.table-narrow th {
 	width: 28%;
 	border-bottom: solid 1px #ddd;
 	border-top: solid 1px #ddd;
 	text-align: left;
-	padding: 16px 1.5% 14px 1.5%;
+	padding: 10px 1.5% 8px 3%;
 	font-weight: bold;
 	vertical-align: text-top;
-	background-color: #FBFBFB;
+	background-color: #EFEFEF;
 }
-.table-stripe th {
+.table-narrow td {
+	border-bottom: solid 1px #DDD;
+	border-top: solid 1px #DDD;
+	padding: 10px 18px 8px 18px;
+    background-color: #fff;
+}
+.table-wide th {
 	width: 28%;
-	border-bottom: solid 1px #DDD;
-	border-top: solid 1px #DDD;
-	text-align: left;
-	padding: 16px 1.5% 14px 1.5%;
-	vertical-align: text-top;
-	font-weight: bold;
-}
-.table td {
-	border-bottom: solid 1px #DDD;
-	border-top: solid 1px #DDD;
-	padding: 16px 18px 14px 18px;
-}
-.table-stripe td {
-	border-bottom: solid 1px #DDD;
-	border-top: solid 1px #DDD;
-	padding: 16px 18px 14px 18px;
-}
-.table-stripe tr:nth-of-type(even) {
-	background-color: #FFFCF2;
-}
-.table-side th {
 	border-bottom: solid 1px #ddd;
 	border-top: solid 1px #ddd;
-	border-left: solid 1px #DDD;
-	padding: 14px 1.5% 12px 1.5%;
+	text-align: left;
+	padding: 15px 1.5% 13px 3%;
 	font-weight: bold;
-	text-align: center;
-	background-color: #FFFCFC;
-	color: #E9617B;
+	vertical-align: text-top;
+	background-color: #EFEFEF;
 }
-.table-side td {
+.table-wide td {
 	border-bottom: solid 1px #DDD;
 	border-top: solid 1px #DDD;
-	border-left: solid 1px #DDD;
-	padding: 14px 1.5% 12px 1.5%;
-	text-align: center;
-}
-.table-side tr th:first-of-type, .table-side tr td:first-of-type {
-	border-left: none;		
-}
-.table-side .td_title {
-	text-align: left;
-	font-weight: bold;
-}
-.table-side .td_title_bc {
-	background-color: #FFFCFC;
-	text-align: left;
-	font-weight: bold;
-}
-.table td p:last-of-type, .table-stripe td p:last-of-type, .table-side td p:last-of-type {
-	margin-bottom: 0;
+	padding: 15px 18px 13px 18px;
+    background-color: #fff;
 }
 
 @media screen and (max-width: 768px) {
-.table th, .table-stripe th { width: 30%;}
-.table0 td, .table-stripe td {
+.table-narrow th, .table-wide th { width: 30%;}
+.table-narrow td,.table-wide td  {
 	padding-right: 2%;
 	padding-left: 2%;
 }
 }
 
 @media screen and (max-width: 480px) {
-.table th {
-	width: 94%;
+.table-narrow th,.table-wide th {
+	width: 100%;
 	padding: 8px 3% 6px 3%;
 	display: block;
 	border-bottom: none;
@@ -146,55 +316,17 @@
 	margin: 0 auto ;
     background-color: #EBEBEB;
 }
-.table-stripe th {
-	width: 94%;
-	padding: 8px 3% 6px 3%;
-	display: block;
-	background-color: #FFF9DF;
-	border-bottom: none;
-	border-top: none;
-	margin: 0 auto ;
-}
-.table td, .table-stripe td {
-	width: 94%;
+.table-narrow td,.table-wide td {
+	width: 100%;
 	display: block;
 	border-bottom-style: none;
 	border-left-style: none;
 	border-top-style: none;
 	padding: 8px 3% 22px 3%;
 	margin: 0 auto;
-	background-color: #FFF;
 	overflow: hidden;
 }
-.table-stripe tr:nth-of-type(even) { background-color: #FFF;}
-.table-side thead {
-    display: none;
 }
-.table-side tr {
-    display: block;
-	border-bottom: solid 1px #CCC;
-}
-.table-side td {
-    display: block;
-	padding: 16px 3% 14px 3%;
-	border-bottom: none;
-	border-left: none;
-	text-align: right;
-}
-.table-side td::before {
-    content: attr(data-label);
-    float: left;
-	font-size: 13px;
-	font-weight: bold;
-}
-.table-side .td_title {
-	background-color: #FFFCFC;
-	border-top: none;
-	color: #E9617B;
-}
-}
---*/
-
 /*----------　リスト　------------*/
 .basic_ul li {
 	background-image: url(../img/common/list_img01.png);
@@ -287,6 +419,7 @@
 .mb55 {margin-bottom:55px;}
 .mb60 {margin-bottom:60px;}
 .mb70 {margin-bottom:70px;}
+.mb0 p {margin-bottom: 0;}
 
 .ml3 {margin-left:3px;}
 .ml5 {margin-left:5px;}

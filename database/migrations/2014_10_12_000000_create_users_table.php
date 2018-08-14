@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('display_url')->unique();
             $table->string('company');
-            $table->string('zip')->nullable();
-            $table->string('address')->nullable();
+            $table->string('zip');
+            $table->string('address');
             $table->string('tel')->nullable();
             $table->string('section')->nullable();
             $table->string('name')->nullable();
@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('privacy_url')->nullable();
             $table->string('service_copy')->nullable();
             $table->text('service_summary')->nullable();
+            $table->text('copyright')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

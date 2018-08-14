@@ -26,4 +26,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    //$user->jobs
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

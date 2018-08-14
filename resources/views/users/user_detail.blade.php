@@ -32,7 +32,10 @@
                         <tr>
                             <th>メイン画像</td>
                             <td>@if(is_null($user->main_image))<span class="red">画像が登録されていません</span>
-                            @else<img src="{{ asset('images/main_image/'. $user->main_image) }}">@endif</td>
+                            @else
+                            <div class="row">
+                                <div class="col-sm-5 img_f"><img src="{{ asset('images/main_image/'. $user->main_image) }}"></div>
+                            </div>@endif</td>
                         </tr>
                         <tr>
                             <th>会社ロゴ</td>

@@ -33,9 +33,17 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
 
     //管理画面
     Route::get('/', function() { return view('users.index'); });
-    Route::get('/{id}', 'UsersController@show')->name('user.show');
+    Route::get('/{id}', 'UsersController@show')->name('user.show')->where('id', '[0-9]+');
     Route::get('/{id}/edit', 'UsersController@edit')->name('user.edit');
     Route::put('/{id}', 'UsersController@update')->name('user.update');
+    
+    //募集要項登録
+    Route::get('/jobs/', 'JobsController@index')->name('job.index');
+    Route::get('/jobs/create', 'JobsController@create')->name('job.create');   // https://~~~~.com/user/jobs/create
+    Route::post('/jobs/create', 'JobsController@store')->name('job.post');
+    Route::delete('/jobs/{id}', 'JobsController@destroy')->name('job.delete');
+    Route::get('/jobs/{id}/edit', 'JobsController@edit')->name('job.edit');
+    Route::put('/jobs/{id}', 'JobsController@update')->name('job.update');
 });
 
 /*
@@ -63,4 +71,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
 });
 
 //個社TOP
-Route::get('/{display_url}', 'HomeController@company')->name('homme.company');
+Route::get('/{display_url}', 'HomeController@company');
+Route::get('/{display_url}/result', 'HomeController@search_result')->name('search.result');
+Route::get('/{display_url}/{id}', 'HomeController@show')->name('job.show');
