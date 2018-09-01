@@ -8,14 +8,18 @@
         </div>
     </div>
     <div class="f_navi_flame">
+        @if(!is_null($user->site_url))
         <div class="outer_navi">
             <div class="inner_navi">
                 <ul class="f_navi">
                     <li><a href="{{ $user->site_url }}" target="_blank">コーポレートサイト</a></li>
+                    @if(!is_null($user->privacy_url))
                     <li><a href="{{ $user->privacy_url }}" target="_blank">個人情報保護方針</a></li>
+                    @endif
                 </ul>
             </div>
         </div>
-        <div class="copyright">Copyright &copy 0000 All Right Reserved.</div>
+        @endif
+        <div class="copyright">Copyright &copy {{ $user->copyright }} All Right Reserved.</div>
     </div>
 </footer>

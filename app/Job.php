@@ -15,4 +15,10 @@ class Job extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    //$job->entries
+    public function entries()
+    {
+        return $this->hasMany(Entry::class);
+    }
 }

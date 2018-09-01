@@ -32,4 +32,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Job::class);
     }
+    //$user->entries
+    public function entries()
+    {
+        return $this->hasMany(Entry::class);
+    }
+    //$user->sendmails
+    public function sendmails()
+    {
+        return $this->hasMany(Sendmail::class);
+    }
+    //$user->mailtemplates
+    public function mailtemplates()
+    {
+        return $this->hasMany(Mailtemplate::class);
+    }
 }

@@ -12,12 +12,12 @@
             {!! Form::open(['route' => 'admin_login.post']) !!}
                 <div class="form-group @if(!empty($errors->first('email'))) has-error @endif">
                     {!! Form::label('email', 'Eメール:') !!}
-                    {!! Form::text('email', old('email'), ['class'=>'form-control']) !!}
+                    {!! Form::text('email', old('email'), ['class'=>'form-control form-lg']) !!}
                     <span class="help-block">{{$errors->first('email')}}</span>
                 </div>
                 <div class="form-group @if(!empty($errors->first('password'))) has-error @endif">
                     {!! Form::label('password', 'パスワード:') !!}
-                    {!! Form::password('password', ['class'=>'form-control']) !!}
+                    {!! Form::password('password', ['class'=>'form-control form-lg']) !!}
                     <span class="help-block">{{$errors->first('password')}}</span>
                 </div>
                 {!! Form::submit('ログイン', ['class' => 'btn btn-primary btn-block mt40']) !!}

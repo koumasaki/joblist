@@ -25,12 +25,20 @@
                                 <li>{!! link_to_route('job.create', '求人案件新規作成') !!}</li>
                             </ul>
                         </li>
-                        <li><a href="#">エントリー管理</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">エントリー管理 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>{!! link_to_route('entry.index', 'エントリー一覧') !!}</li>
+                                <li role="separator" class="divider"></li>
+                                <li>{!! link_to_route('mail.index', 'メール送信履歴') !!}</li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会社情報、他 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <?php $user = Auth::user(); ?>
                                 <li>{!! link_to_route('user.show', '会社登録情報', ['id' => $user->id]) !!}</li>
+                                <li>{!! link_to_route('mailtemplate.index', '送信用メールテンプレート') !!}</li>
                                 <li role="separator" class="divider"></li>
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
                             </ul>

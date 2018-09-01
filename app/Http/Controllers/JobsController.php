@@ -15,7 +15,7 @@ class JobsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $jobs = $user->jobs()->orderBy('created_at', 'desc')->paginate(10);
-
+            
             $data = [
                 'user' => $user,
                 'jobs' => $jobs,
@@ -64,6 +64,7 @@ class JobsController extends Controller
         $job->job_category = $request->job_category;
         $job->pref = $request->pref;
         $job->release = $request->release;
+        $job->sender_mail = $request->sender_mail;
 
         //仕事画像
         if($request->hasFile('job_image')) {
@@ -119,6 +120,7 @@ class JobsController extends Controller
         $job->job_category = $request->job_category;
         $job->pref = $request->pref;
         $job->release = $request->release;
+        $job->sender_mail = $request->sender_mail;
 
         //仕事画像
         if($request->hasFile('job_image')) {

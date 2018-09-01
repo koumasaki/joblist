@@ -1,6 +1,6 @@
 @extends('layouts.users_app')
 
-@section('title', ' | 募集要項登録')
+@section('title', ' | 募集要項編集')
 
 
 @section('content')
@@ -25,84 +25,84 @@
             	<div class="form-group @if(!empty($errors->first('job_copy'))) has-error @endif">
             		{!! Form::label('job_copy', '職種情報補足コピー', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-6">
-                        {!! Form::text('job_copy', old('job_copy'), ['class'=>'form-control']) !!}
+                        {!! Form::text('job_copy', old('job_copy'), ['class'=>'form-control form-lg']) !!}
                         <span class="help-block">{{$errors->first('job_copy')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('detail'))) has-error @endif">
             		{!! Form::label('job_status', '仕事内容', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-                        {!! Form::textarea('detail', old('detail'), ['class' => 'form-control', 'rows' => '10']) !!}
+                        {!! Form::textarea('detail', old('detail'), ['class' => 'form-control form-lg', 'rows' => '10']) !!}
                         <span class="help-block">{{$errors->first('detail')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('qualification'))) has-error @endif">
             		{!! Form::label('qualification', '応募資格', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('qualification', old('qualification'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('qualification', old('qualification'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('qualification')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('salary'))) has-error @endif">
             		{!! Form::label('salary', '給与', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('salary', old('salary'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('salary', old('salary'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('salary')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('allowance'))) has-error @endif">
             		{!! Form::label('allowance', '諸手当', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('allowance', old('allowance'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('allowance', old('allowance'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('allowance')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('place'))) has-error @endif">
             		{!! Form::label('place', '勤務地', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('place', old('place'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('place', old('place'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('place')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('time'))) has-error @endif">
             		{!! Form::label('time', '勤務時間', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('time', old('time'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('time', old('time'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('time')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('holiday'))) has-error @endif">
             		{!! Form::label('holiday', '休日・休暇', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('holiday', old('holiday'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('holiday', old('holiday'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('holiday')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('bonus'))) has-error @endif">
             		{!! Form::label('bonus', '昇給・賞与', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('bonus', old('bonus'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('bonus', old('bonus'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('bonus')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('benefit'))) has-error @endif">
             		{!! Form::label('benefit', '待遇・福利厚生', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('benefit', old('benefit'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('benefit', old('benefit'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('benefit')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('add_title'))) has-error @endif">
             		{!! Form::label('add_title', '追加項目（タイトル）', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-6">
-                        {!! Form::text('add_title', old('add_title'), ['class'=>'form-control']) !!}
+                        {!! Form::text('add_title', old('add_title'), ['class'=>'form-control form-sm']) !!}
                         <span class="help-block">{{$errors->first('add_title')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('add_body'))) has-error @endif">
             		{!! Form::label('add_body', '追加項目（本文）', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('add_body', old('add_body'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('add_body', old('add_body'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('add_body')}}</span>
             		</div>
             	</div>
@@ -117,7 +117,7 @@
             	<div class="form-group @if(!empty($errors->first('entry_method'))) has-error @endif">
             		{!! Form::label('entry_method', '応募方法', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
-            		    {!! Form::textarea('entry_method', old('entry_method'), ['class' => 'form-control', 'rows' => '5']) !!}
+            		    {!! Form::textarea('entry_method', old('entry_method'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
                         <span class="help-block">{{$errors->first('entry_method')}}</span>
             		</div>
             	</div>
@@ -207,6 +207,13 @@
             		<div class="col-sm-3">
             		    {!! Form::select('release', ['' => '--選択--', 'release' => '公開', 'unrelease' => '未公開'], old('release'), ['class'=>'form-control']) !!}
                         <span class="help-block">{{$errors->first('release')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group @if(!empty($errors->first('sender_mail'))) has-error @endif">
+            		{!! Form::label('sender_mail', 'エントリー通知受信アドレス', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-9">
+                        {!! Form::text('sender_mail', old('sender_mail'), ['class'=>'form-control form-md']) !!}
+                        <span class="help-block">{{$errors->first('sender_mail')}}</span>
             		</div>
             	</div>
                 {!! Form::submit('更新', ['class'=>'btn btn-primary']) !!}

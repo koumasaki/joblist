@@ -7,7 +7,7 @@
     <div id="inner_img">
         <div id="cover"></div>
         <div class="img_f"><img src="{{ asset('images/main_image/'. $user->main_image) }}"></div>
-        <h2 id="copy">キャッチコピーが入ります（20文字まで）</h2>
+        <h2 id="copy">{{ $user->catch_copy }}</h2>
     </div>
 </div>
 
@@ -68,7 +68,7 @@
                             echo '公共サービス';
                             break;
                     }
-                    ?></dd>
+                ?></dd>
                 <dt>雇用形態</dt>
                 <dd><?php 
                     switch($job_status) {
@@ -94,17 +94,18 @@
                             echo 'その他';
                             break;
                     }
-                    ?></dd>
+                ?></dd>
             </dl>
         </div>
         <div class="col-md-8">
-            @if($count_jobs > 0)
-            @foreach ($jobs as $job)
-            <?php $user = $job->user; ?>
-@include('commons.job_flame')
-            @endforeach
+            @if( count($jobs) > 0 )
+            {{-- count($jobs) を使うと便利 --}}
+                @foreach ($jobs as $job)
+                <?php $user = $job->user; ?>
+                @include('jobs.job_all')
+                @endforeach
             @else
-            <p class="mb40">現在、募集要項は公開しておりません。<br>採用活動を再開した際には、こちらのページで募集要項をご案内いたします。</p>
+                <p class="mb40">検索条件に合う募集要項は見つかりませんでした。<br>検索条件を変えて再度、検索していただくか、<a href="{{ route('company.show', ['id' => $user->display_url]) }}">TOPページ</a>にお戻りください。</p>
             @endif
         </div>
         <div class="col-md-4">

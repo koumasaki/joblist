@@ -10,6 +10,14 @@
     margin: 0 auto 40px auto;
     position: relative;
 }
+#cate_img_flame {
+    width: 100%;
+    height: 0;
+    padding-bottom: 20%;
+    overflow: hidden;
+    margin: 0 auto 40px auto;
+    position: relative;
+}
 #cover {
     background-color: rgba(0,0,0,0.3);
     position: absolute;
@@ -52,6 +60,7 @@
     font-family: "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
     font-size: 2.5vw;
 }
+
 .service_img {
     width: 100%;
     height: 0;
@@ -117,10 +126,57 @@
     margin-right: 5px;
 }
 .btn_entry {float: left;}
+
+.form-xs { width: 20%;}
+.form-sm { width: 35%;}
+.form-md { width: 60%;}
+.form-lg { width: 100%;}
+
+#corporation, #service, #recruit {
+    display: block;
+    padding-top: 70px;
+    margin-top: -70px;
+}
+
+
+/*----------　管理画面追加　------------*/
 .update {
     float: right;
     margin-top: 15px;
 }
+
+.table-view > thead > tr > th {
+    padding: 20px 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-left: dotted 1px #ddd;
+}
+.table-view > tbody > tr > td {
+    padding: 14px 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: dotted 1px #ddd;
+}
+.table-view > thead > tr > th:first-of-type,
+.table-view > tbody > tr > td:first-of-type {
+    border-left: none;
+}
+.table-view > thead:first-child > tr:first-child > th {
+  border-top: solid 1px #ddd;
+}
+.table-view .gray {
+    background-color: #F6F6F6;
+}
+.table-view > tbody > .gray > td {
+    border-top: 2px solid #ddd;
+    text-align: center;
+}
+.table-name { width: 130px;}
 
 footer {
     border-top: solid 1px #ccc;
@@ -157,11 +213,19 @@ footer {
 .catch_copy {
     font-size: 3.2vw;  
 }
+.service_flame {
+    padding-left: 40px;
+    padding-right: 40px;
+}
 .job_img {
     width: 85%;
     padding-bottom: 56%;
     margin: 30px auto 0 auto;
 }
+
+.form-xs { width: 30%;}
+.form-sm { width: 50%;}
+.form-md { width: 75%;}
 
 .f_navi_flame {
     padding: 15px 20px 10px 20px;
@@ -182,6 +246,10 @@ footer {
 
 
 @media screen and (max-width: 480px) {
+.service_flame {
+    padding-left: 25px;
+    padding-right: 25px;
+}
 .job_img {
     width: 100%;
     padding-bottom: 66%;
@@ -202,6 +270,8 @@ footer {
     text-align: center;
     background-color: #D90000;
 }
+
+.form-xs, .form-sm, .form-md { width: 100%;}
 }
 
 
@@ -259,7 +329,7 @@ footer {
 .br_sp { display: inline; }
 }
 
-.table-narrow, .table-wide {
+.table-narrow, .table-wide, .table-form {
 	width: 100%;
 	margin-right: auto;
 	margin-left: auto;
@@ -273,7 +343,7 @@ footer {
 	padding: 10px 1.5% 8px 3%;
 	font-weight: bold;
 	vertical-align: text-top;
-	background-color: #EFEFEF;
+	background-color: #F6F6F6;
 }
 .table-narrow td {
 	border-bottom: solid 1px #DDD;
@@ -289,7 +359,7 @@ footer {
 	padding: 15px 1.5% 13px 3%;
 	font-weight: bold;
 	vertical-align: text-top;
-	background-color: #EFEFEF;
+	background-color: #F6F6F6;
 }
 .table-wide td {
 	border-bottom: solid 1px #DDD;
@@ -297,10 +367,26 @@ footer {
 	padding: 15px 18px 13px 18px;
     background-color: #fff;
 }
+.table-form th {
+	width: 28%;
+	border-bottom: solid 1px #ddd;
+	border-top: solid 1px #ddd;
+	text-align: left;
+	padding: 20px 1.5% 16px 3%;
+	font-weight: bold;
+	vertical-align: text-top;
+	background-color: #F6F6F6;
+}
+.table-form td {
+	border-bottom: solid 1px #DDD;
+	border-top: solid 1px #DDD;
+	padding: 20px 18px 16px 18px;
+    background-color: #fff;
+}
 
 @media screen and (max-width: 768px) {
-.table-narrow th, .table-wide th { width: 30%;}
-.table-narrow td,.table-wide td  {
+.table-narrow th, .table-wide th, .table-form th { width: 30%;}
+.table-narrow td,.table-wide td, .table-form td  {
 	padding-right: 2%;
 	padding-left: 2%;
 }
@@ -317,6 +403,25 @@ footer {
     background-color: #EBEBEB;
 }
 .table-narrow td,.table-wide td {
+	width: 100%;
+	display: block;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-style: none;
+	padding: 8px 3% 22px 3%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.table-form th {
+	width: 100%;
+	padding: 8px 3% 6px 3%;
+	display: block;
+	border-bottom: none;
+	border-top: none;
+	margin: 0 auto 10px auto;
+    background-color: #EBEBEB;
+}
+.table-form td {
 	width: 100%;
 	display: block;
 	border-bottom-style: none;
@@ -467,7 +572,20 @@ footer {
 .pt40 {padding-top: 40px;}
 
 .pr0 {padding-right: 0px;}
+.pr10 {padding-right: 10px;}
+.pr15 {padding-right: 15px;}
 .pr20 {padding-right: 20px;}
 
 .pl0 {padding-left: 0px;}
 .pl20 {padding-left: 20px;}
+
+.width10 {width: 10%;}
+.width20 {width: 20%;}
+.width30 {width: 30%;}
+.width40 {width: 40%;}
+.width50 {width: 50%;}
+.width60 {width: 60%;}
+.width70 {width: 70%;}
+.width80 {width: 80%;}
+.width90 {width: 90%;}
+.width100 {width: 100%;}

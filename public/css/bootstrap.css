@@ -1619,6 +1619,16 @@ pre code {
   display: flex;
   flex-wrap: wrap;
 }
+.row-center{
+  text-align:center;
+  letter-spacing:-0.4em;
+}
+.row-center > [class*='col-'] {
+  display:inline-block;
+  letter-spacing:0;
+  vertical-align:top;
+  float:none !important;
+}
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
@@ -2284,12 +2294,12 @@ th {
   border-top: 1px solid #ddd;
 }
 .table > thead > tr > th {
-  vertical-align: bottom;
+  vertical-align: middle;
   border-bottom: 2px solid #ddd;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
-.table > thead:first-child > tr:first-child > th,
+/*.table > thead:first-child > tr:first-child > th,*/
 .table > caption + thead > tr:first-child > td,
 .table > colgroup + thead > tr:first-child > td,
 .table > thead:first-child > tr:first-child > td {
@@ -2555,7 +2565,6 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -2818,6 +2827,7 @@ select[multiple].input-lg {
   line-height: 30px;
 }
 .has-success .help-block,
+.has-success .help-block-ent,
 .has-success .control-label,
 .has-success .radio,
 .has-success .checkbox,
@@ -2848,6 +2858,7 @@ select[multiple].input-lg {
   color: #3c763d;
 }
 .has-warning .help-block,
+.has-warning .help-block-ent,
 .has-warning .control-label,
 .has-warning .radio,
 .has-warning .checkbox,
@@ -2878,6 +2889,7 @@ select[multiple].input-lg {
   color: #8a6d3b;
 }
 .has-error .help-block,
+.has-error .help-block-ent,
 .has-error .control-label,
 .has-error .radio,
 .has-error .checkbox,
@@ -2919,56 +2931,62 @@ select[multiple].input-lg {
   margin-bottom: 10px;
   color: #737373;
 }
-@media (min-width: 768px) {
-  .form-inline .form-group {
+.help-block-ent {
+  display: block;
+  margin-top: 5px;
+  color: #737373;
+  font-size: 14px;
+}
+
+.form-inline .form-group {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
-  }
-  .form-inline .form-control {
+}
+.form-inline .form-control {
     display: inline-block;
     width: auto;
     vertical-align: middle;
-  }
-  .form-inline .form-control-static {
+}
+.form-inline .form-control-static {
     display: inline-block;
-  }
-  .form-inline .input-group {
+}
+.form-inline .input-group {
     display: inline-table;
     vertical-align: middle;
-  }
-  .form-inline .input-group .input-group-addon,
-  .form-inline .input-group .input-group-btn,
-  .form-inline .input-group .form-control {
+}
+.form-inline .input-group .input-group-addon,
+.form-inline .input-group .input-group-btn,
+.form-inline .input-group .form-control {
     width: auto;
-  }
-  .form-inline .input-group > .form-control {
+}
+.form-inline .input-group > .form-control {
     width: 100%;
-  }
-  .form-inline .control-label {
+}
+.form-inline .control-label {
     margin-bottom: 0;
     vertical-align: middle;
-  }
-  .form-inline .radio,
-  .form-inline .checkbox {
+}
+.form-inline .radio,
+.form-inline .checkbox {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
     vertical-align: middle;
-  }
-  .form-inline .radio label,
-  .form-inline .checkbox label {
+}
+.form-inline .radio label,
+.form-inline .checkbox label {
     padding-left: 0;
-  }
-  .form-inline .radio input[type="radio"],
-  .form-inline .checkbox input[type="checkbox"] {
+}
+.form-inline .radio input[type="radio"],
+.form-inline .checkbox input[type="checkbox"] {
     position: relative;
     margin-left: 0;
-  }
-  .form-inline .has-feedback .form-control-feedback {
-    top: 0;
-  }
 }
+.form-inline .has-feedback .form-control-feedback {
+    top: 0;
+}
+
 .form-horizontal .radio,
 .form-horizontal .checkbox,
 .form-horizontal .radio-inline,

@@ -61,6 +61,7 @@
             	<div class="form-group @if(!empty($errors->first('main_image'))) has-error @endif">
             		{!! Form::label('main_image', 'メイン画像', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
+            		    <div class="width50 img_f mb20"><img src="{{ asset('images/main_image/'. $user->main_image) }}"></div>
                         {!! Form::file('main_image') !!}
                         <span class="help-block">{{$errors->first('main_image')}}</span>
                         <span class="help-block">※左右幅1600px以上の画像を登録</span>
@@ -69,6 +70,7 @@
             	<div class="form-group @if(!empty($errors->first('logo_image'))) has-error @endif">
             		{!! Form::label('logo_image', '会社ロゴ', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-9">
+                        <div class="mb20"><img src="{{ asset('images/logo/'. $user->logo_image) }}"></div>
                         {!! Form::file('logo_image') !!}
                         <span class="help-block">{{$errors->first('logo_image')}}</span>
                         <span class="help-block">※左右幅250px以下の画像を登録</span>
@@ -116,20 +118,6 @@
                         <span class="help-block">{{$errors->first('president')}}</span>
             		</div>
             	</div>
-            	<div class="form-group @if(!empty($errors->first('site_url'))) has-error @endif">
-            		{!! Form::label('site_url', '企業サイトURL', ['class'=>'col-sm-3 control-label']) !!}
-            		<div class="col-sm-6">
-                        {!! Form::text('site_url', old('site_url'), ['class'=>'form-control', 'placeholder'=>'※']) !!}
-                        <span class="help-block">{{$errors->first('site_url')}}</span>
-            		</div>
-            	</div>
-            	<div class="form-group @if(!empty($errors->first('privacy_url'))) has-error @endif">
-            		{!! Form::label('site_url', '個人情報保護ページURL', ['class'=>'col-sm-3 control-label']) !!}
-            		<div class="col-sm-6">
-                        {!! Form::text('privacy_url', old('privacy_url'), ['class'=>'form-control', 'placeholder'=>'※']) !!}
-                        <span class="help-block">{{$errors->first('privacy_url')}}</span>
-            		</div>
-            	</div>
             	<div class="form-group @if(!empty($errors->first('service_copy'))) has-error @endif">
             		{!! Form::label('service_copy', '事業紹介用コピー', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-8">
@@ -144,6 +132,20 @@
                         <span class="help-block">{{$errors->first('service_summary')}}</span>
             		</div>
             	</div>
+            	<div class="form-group @if(!empty($errors->first('site_url'))) has-error @endif">
+            		{!! Form::label('site_url', '企業サイトURL', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-6">
+                        {!! Form::text('site_url', old('site_url'), ['class'=>'form-control', 'placeholder'=>'※']) !!}
+                        <span class="help-block">{{$errors->first('site_url')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group @if(!empty($errors->first('privacy_url'))) has-error @endif">
+            		{!! Form::label('site_url', '個人情報保護ページURL', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-6">
+                        {!! Form::text('privacy_url', old('privacy_url'), ['class'=>'form-control', 'placeholder'=>'※']) !!}
+                        <span class="help-block">{{$errors->first('privacy_url')}}</span>
+            		</div>
+            	</div>
             	<div class="form-group @if(!empty($errors->first('copyright'))) has-error @endif">
             		{!! Form::label('copyright', 'copyright表記', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-8">
@@ -151,7 +153,7 @@
                         <span class="help-block">{{$errors->first('copyright')}}</span>
             		</div>
             	</div>
-                {!! Form::submit('更新', ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('登録内容を更新する', ['class'=>'btn btn-primary']) !!}
                 {!! link_to_route('user.show', '戻る', ['id' => $user->id], ['class'=>'btn btn-success']) !!}
             </div>
             {!! Form::close() !!}

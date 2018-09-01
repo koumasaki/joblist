@@ -9,7 +9,7 @@
         		        'temp' => '派遣社員',
         		        'commission' => '嘱託',
         		        'others' => 'その他'
-        		    ], old('job_status'), ['class'=>'form-control']) !!}
+        		    ], old('job_status'), ['class'=>'form-control form-lg']) !!}
                 </div>
                 <div class="form-group">
         		    {!! Form::select('job_category', [
@@ -30,7 +30,7 @@
         		        'chemical' => '化学・食品・医薬',
         		        'skill' => '設備・技能・配送',
         		        'official' => '公共サービス'
-        		    ], old('job_category'), ['class'=>'form-control']) !!}
+        		    ], old('job_category'), ['class'=>'form-control form-lg']) !!}
                 </div>
                 <div class="form-group">
         		    {!! Form::select('pref', [
@@ -82,7 +82,7 @@
         		        'miyazaki' => '宮崎',
         		        'kagoshima' => '鹿児島',
         		        'okinawa' => '沖縄'
-        		    ], old('pref'), ['class'=>'form-control']) !!}
+        		    ], old('pref'), ['class'=>'form-control form-lg']) !!}
                 </div>
                 {!! Form::submit('検索する', ['class'=>'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}

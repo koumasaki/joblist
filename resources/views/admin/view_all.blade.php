@@ -12,6 +12,7 @@
                         <tr>
                             <th>ID</th>
                             <th>会社名</th>
+                            <th>表示URL</th>
                             <th>担当者名</th>
                             <th>登録アドレス</th>
                             <th class="text-center">登録削除</th>
@@ -22,6 +23,7 @@
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->company }}</td>
+                            <td>{{ $user->display_url }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="text-center">
