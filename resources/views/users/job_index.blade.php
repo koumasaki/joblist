@@ -53,6 +53,9 @@
                         <td rowspan="2">@if($job->release === 'release')<?php echo '公開'; ?>@else<?php echo '未公開'; ?>@endif</td>
                         <td rowspan="2">
                             {!! link_to_route('job.edit', '編集', ['id' => $job->id], ['class'=>'btn btn-primary btn-xs']) !!}
+                            {!! Form::open(['route' => ['job.getCopy', $job->id], 'method' => 'post']) !!}
+                                {!! Form::submit('複製', ['class' => 'btn btn-success btn-xs']) !!}
+                            {!! Form::close() !!}
                             {!! Form::open(['route' => ['job.delete', $job->id], 'method' => 'delete']) !!}
                                 {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
                             {!! Form::close() !!}

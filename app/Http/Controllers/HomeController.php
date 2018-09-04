@@ -20,6 +20,14 @@ class HomeController extends Controller
         ]);
     }
 
+    //TOPページ表示
+    public function sitemap()
+    {
+        $jobs = Job::all();
+        
+        return response()->view('sitemap', ['jobs' => $jobs])->header('Content-Type', 'text/xml');
+    }
+    
     //個別ユーザー（会社）TOPページ表示
     public function company($id)
     {
@@ -85,6 +93,9 @@ class HomeController extends Controller
         };
 
         // $job が公開か非公開か判別して　非公開だったら 「ページは存在しません」などのビューを表示
+        if ($job->release === 'unrelease') {
+            return redirect('/');
+        };
 
         return view('home.user_job', [
             'user' => $user,

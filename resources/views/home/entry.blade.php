@@ -15,6 +15,9 @@
         <div class="col-md-12">
             <h1>エントリーフォーム</h1>
             <hr>
+            @if (count($errors) > 0)
+            <div class="alert alert-warning">入力内容に間違いがございます。<br>以下のメッセージをご確認のうえ、必要項目へのご入力をお願いします。</div>
+            @endif
             {!! Form::open(['route' => ['entry.confirm', $user->display_url, $job->id], 'class' => 'form-horizontal']) !!}
                 <table class="table-wide mb20">
                     <tbody>

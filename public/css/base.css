@@ -92,6 +92,13 @@
     margin-bottom: 1px;
     padding: 15px 20px;
 }
+.status {
+    color: #fff;
+    background-color: #3399cc;
+    font-size: 15px;
+    padding: 3px 10px;
+    margin-left: 15px;
+}
 .job_copy {
     font-size: 13px;
     line-height: 100%;

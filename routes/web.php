@@ -18,6 +18,9 @@
 */
 Route::get('/', 'HomeController@index')->name('company.index');
 
+//xmlファイル
+Route::get('/indeed.xml', 'HomeController@sitemap');
+
 // ログイン認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -41,6 +44,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
     Route::get('/jobs', 'JobsController@index')->name('job.index');
     Route::get('/jobs/create', 'JobsController@create')->name('job.create');   // https://~~~~.com/user/jobs/create
     Route::post('/jobs/create', 'JobsController@store')->name('job.post');
+    Route::post('/jobs/{id}', 'JobsController@getCopy')->name('job.getCopy');
     Route::delete('/jobs/{id}', 'JobsController@destroy')->name('job.delete');
     Route::get('/jobs/{id}/edit', 'JobsController@edit')->name('job.edit');
     Route::put('/jobs/{id}', 'JobsController@update')->name('job.update');

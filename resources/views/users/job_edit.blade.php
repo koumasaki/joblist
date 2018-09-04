@@ -216,8 +216,8 @@
                         <span class="help-block">{{$errors->first('sender_mail')}}</span>
             		</div>
             	</div>
-                {!! Form::submit('更新', ['class'=>'btn btn-primary']) !!}
-                {!! link_to_route('job.index', '戻る', ['class'=>'btn btn-success']) !!}
+                {!! Form::submit('更新する', ['class'=>'btn btn-primary']) !!}
+                {!! link_to_route('job.index', '戻る', '', ['class'=>'btn btn-success']) !!}
             {!! Form::close() !!}
         </div>
     </div>

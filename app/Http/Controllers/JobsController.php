@@ -138,6 +138,23 @@ class JobsController extends Controller
         return redirect('/user/jobs');
     }
 
+    //募集要項複製
+    public function getCopy($id){
+
+        $data = \App\Job::find($id)->replicate();
+        $data->job_name = '（複製）'. $data->job_name;
+        $data->release = 'unrelease';
+        unset($data->created_at);
+        unset($data->updated_at);
+        if($data->save()){
+            return redirect('/user/jobs')
+                            ->with('message', '複製しました。');
+        }else{
+            return redirect('/user/jobs')
+                            ->with('message', '複製出来ませんでした。');
+        }
+    }
+
     //募集要項削除
     public function destroy($id)
     {
