@@ -21,9 +21,9 @@ class CreateJobsTable extends Migration
             $table->string('job_copy');
             $table->text('detail');
             $table->text('qualification');
-            $table->text('salary')->nullable();
+            $table->text('salary');
             $table->text('allowance')->nullable();
-            $table->text('place')->nullable();
+            $table->text('place');
             $table->text('time')->nullable();
             $table->text('holiday')->nullable();
             $table->text('bonus')->nullable();
@@ -33,9 +33,14 @@ class CreateJobsTable extends Migration
             $table->string('job_image')->nullable();
             $table->text('entry_method')->nullable();
             $table->string('job_category')->nullable();
+            $table->string('zip')->nullable();
             $table->string('pref')->nullable();
+            $table->string('state')->nullable();
+            $table->text('education')->nullable();
             $table->string('release');
-            $table->string('sender_mail')->nullable();
+            $table->string('sender_mail');
+            $table->string('memo')->nullable();
+            $table->string('simple_form')->nullable();
             $table->timestamps();
             
             //外部キー制約

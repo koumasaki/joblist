@@ -128,6 +128,14 @@
                         <span class="help-block">{{$errors->first('entry_method')}}</span>
             		</div>
             	</div>
+            	<div class="form-group @if(!empty($errors->first('simple_form'))) has-error @endif">
+            		{!! Form::label('simple_form', 'エントリーフォーム種類', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-9">
+                        <div class="radio"><label>{!! Form::radio('simple_form', 'regular', true) !!} 通常エントリーフォーム</label></div>
+                        <div class="radio"><label>{!! Form::radio('simple_form', 'simple') !!} シンプルフォーム</label></div>
+                        <span class="help-block">{{$errors->first('simple_form')}}</span>
+            		</div>
+            	</div>
             	<div class="form-group @if(!empty($errors->first('job_category'))) has-error @endif">
             		{!! Form::label('job_category', '職種カテゴリー', ['class'=>'col-sm-3 control-label']) !!}
             		<div class="col-sm-3">
@@ -153,60 +161,32 @@
                         <span class="help-block">{{$errors->first('job_category')}}</span>
             		</div>
             	</div>
+            	<div class="form-group @if(!empty($errors->first('zip'))) has-error @endif">
+            		{!! Form::label('zip', '郵便番号（７桁）', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-6">
+                        {!! Form::text('zip', old('zip'), ['class'=>'form-control form-sm', 'placeholder'=>'※ハイフンなし', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pref','state');"]) !!}
+                        <span class="help-block">{{$errors->first('zip')}}</span>
+            		</div>
+            	</div>
             	<div class="form-group @if(!empty($errors->first('pref'))) has-error @endif">
             		{!! Form::label('pref', '都道府県', ['class'=>'col-sm-3 control-label']) !!}
-            		<div class="col-sm-3">
-            		    {!! Form::select('pref', [
-            		        '' => '--選択--',
-            		        'hokkaido' => '北海道',
-            		        'aomori' => '青森',
-            		        'akita' => '秋田',
-            		        'iwate' => '岩手',
-            		        'miyagi' => '宮城',
-            		        'yamagata' => '山形',
-            		        'fukushima' => '福島',
-            		        'ibaragi' => '茨城',
-            		        'tochigi' => '栃木',
-            		        'gunma' => '群馬',
-            		        'saitama' => '埼玉',
-            		        'chiba' => '千葉',
-            		        'tokyo' => '東京',
-            		        'kanagawa' => '神奈川',
-            		        'niigata' => '新潟',
-            		        'toyama' => '富山',
-            		        'ishikawa' => '石川',
-            		        'fukui' => '福井',
-            		        'yamanashi' => '山梨',
-            		        'nagano' => '長野',
-            		        'gifu' => '岐阜',
-            		        'sizuoka' => '静岡',
-            		        'aichi' => '愛知',
-            		        'mie' => '三重',
-            		        'shiga' => '滋賀',
-            		        'kyoto' => '京都',
-            		        'osaka' => '大阪',
-            		        'hyogo' => '兵庫',
-            		        'nara' => '奈良',
-            		        'wakayama' => '和歌山',
-            		        'okayama' => '岡山',
-            		        'hiroshima' => '広島',
-            		        'yamaguchi' => '山口',
-            		        'tottori' => '鳥取',
-            		        'shimane' => '島根',
-            		        'tokushima' => '徳島',
-            		        'kagawa' => '香川',
-            		        'ehime' => '愛媛',
-            		        'kouchi' => '高知',
-            		        'fukuoka' => '福岡',
-            		        'saga' => '佐賀',
-            		        'nagasaki' => '長崎',
-            		        'oita' => '大分',
-            		        'kumamoto' => '熊本',
-            		        'miyazaki' => '宮崎',
-            		        'kagoshima' => '鹿児島',
-            		        'okinawa' => '沖縄'
-            		    ], old('pref'), ['class'=>'form-control']) !!}
+            		<div class="col-sm-6">
+            		    {!! Form::text('pref', old('pref'), ['class'=>'form-control form-xs']) !!}
                         <span class="help-block">{{$errors->first('pref')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group @if(!empty($errors->first('state'))) has-error @endif">
+            		{!! Form::label('state', '市区町村', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-6">
+            		    {!! Form::text('state', old('state'), ['class'=>'form-control form-md']) !!}
+                        <span class="help-block">{{$errors->first('state')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group @if(!empty($errors->first('education'))) has-error @endif">
+            		{!! Form::label('education', '教育', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-9">
+            		    {!! Form::textarea('education', old('education'), ['class' => 'form-control form-lg', 'rows' => '5']) !!}
+                        <span class="help-block">{{$errors->first('education')}}</span>
             		</div>
             	</div>
             	<div class="form-group @if(!empty($errors->first('release'))) has-error @endif">
@@ -221,6 +201,12 @@
             		<div class="col-sm-9">
                         {!! Form::text('sender_mail', old('sender_mail'), ['class'=>'form-control form-md']) !!}
                         <span class="help-block">{{$errors->first('sender_mail')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group">
+            		{!! Form::label('memo', 'メモ', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-9">
+            		    {!! Form::text('memo', old('memo'), ['class'=>'form-control form-sm']) !!}
             		</div>
             	</div>
                 {!! Form::submit('登録', ['class'=>'btn btn-primary']) !!}

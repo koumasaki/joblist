@@ -106,6 +106,20 @@
                         <th>copyright表記</td>
                         <td>{{ $user->copyright }}</td>
                     </tr>
+                    <tr>
+                        <th>リターゲティング用タグ</td>
+                        <td>@if(is_null($user->retarge_tag))設定なし
+                        @else
+                        設定あり
+                        @endif</td>
+                    </tr>
+                    <tr>
+                        <th>CV計測用タグ</td>
+                        <td>@if(is_null($user->cv_tag))設定なし
+                        @else
+                        設定あり
+                        @endif</td>
+                    </tr>
                 </tbody>
             </table>
             {!! link_to_route('user.edit', '会社登録情報を編集', ['id' => $user->id], ['class'=>'btn btn-primary']) !!}

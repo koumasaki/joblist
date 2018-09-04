@@ -37,7 +37,9 @@ class CreateUsersTable extends Migration
             $table->string('privacy_url')->nullable();
             $table->string('service_copy')->nullable();
             $table->text('service_summary')->nullable();
-            $table->text('copyright')->nullable();
+            $table->text('copyright');
+            $table->text('retarge_tag')->nullable();
+            $table->text('cv_tag')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

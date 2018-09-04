@@ -39,7 +39,7 @@ class JobsController extends Controller
         $this->validate($request, [
             'job_name' => 'required|max:191',
             'job_status' => 'required|max:191',
-            'detail' => 'required|max:191',
+            'detail' => 'required',
             'qualification' => 'required|max:191',
             'release' => 'required',
         ]);
@@ -62,9 +62,14 @@ class JobsController extends Controller
         $job->add_body = $request->add_body;
         $job->entry_method = $request->entry_method;
         $job->job_category = $request->job_category;
+        $job->zip = $request->zip;
         $job->pref = $request->pref;
+        $job->state = $request->state;
+        $job->education = $request->education;
         $job->release = $request->release;
         $job->sender_mail = $request->sender_mail;
+        $job->memo = $request->memo;
+        $job->simple_form = $request->simple_form;
 
         //仕事画像
         if($request->hasFile('job_image')) {
@@ -97,12 +102,13 @@ class JobsController extends Controller
     {
         $this->validate($request, [
             'job_status' => 'required|max:191',
-            'detail' => 'required|max:191',
+            'detail' => 'required',
             'qualification' => 'required|max:191',
             'release' => 'required',
         ]);
 
         $job = Job::find($id);
+        $job->job_name = $request->job_name;
         $job->job_status = $request->job_status;
         $job->job_copy = $request->job_copy;
         $job->detail = $request->detail;
@@ -118,9 +124,14 @@ class JobsController extends Controller
         $job->add_body = $request->add_body;
         $job->entry_method = $request->entry_method;
         $job->job_category = $request->job_category;
+        $job->zip = $request->zip;
         $job->pref = $request->pref;
+        $job->state = $request->state;
+        $job->education = $request->education;
         $job->release = $request->release;
         $job->sender_mail = $request->sender_mail;
+        $job->memo = $request->memo;
+        $job->simple_form = $request->simple_form;
 
         //仕事画像
         if($request->hasFile('job_image')) {

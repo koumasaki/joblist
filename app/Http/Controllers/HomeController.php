@@ -20,7 +20,7 @@ class HomeController extends Controller
         ]);
     }
 
-    //TOPページ表示
+    //xmlファイル作成
     public function sitemap()
     {
         $jobs = Job::all();
@@ -51,7 +51,7 @@ class HomeController extends Controller
         
     }
     
-    //個別ユーザー登録情報
+    //絞り込み検索結果
     public function search_result(Request $request, $id)
     {
         $user = User::where('display_url', $id)->first();
@@ -60,12 +60,47 @@ class HomeController extends Controller
         $job_status = $request->job_status;
         $pref = $request->pref;
         
-        $jobs = $user->jobs()
-            ->where('release', 'release')
-            ->where('job_category', $job_category)
-            ->where('job_status', $job_status)
-            ->where('pref', $pref)
-            ->orderBy('created_at', 'desc')->paginate(10);
+        if (is_null($job_category) && is_null($job_status)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('pref', $pref)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } elseif (is_null($job_category) && is_null($pref)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_status', $job_status)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } elseif (is_null($job_category)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_status', $job_status)
+                ->where('pref', $pref)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } elseif (is_null($job_status) && is_null($pref)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_category', $job_category)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } elseif (is_null($job_status)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_category', $job_category)
+                ->where('pref', $pref)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } elseif (is_null($pref)) {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_category', $job_category)
+                ->where('job_status', $job_status)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        } else {
+            $jobs = $user->jobs()
+                ->where('release', 'release')
+                ->where('job_category', $job_category)
+                ->where('job_status', $job_status)
+                ->where('pref', $pref)
+                ->orderBy('created_at', 'desc')->paginate(10);
+        }
 
         $data = [
             'user' => $user,

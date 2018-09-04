@@ -77,6 +77,8 @@ class UsersController extends Controller
         $user->service_copy = $request->service_copy;
         $user->service_summary = $request->service_summary;
         $user->copyright = $request->copyright;
+        $user->retarge_tag = $request->retarge_tag;
+        $user->cv_tag = $request->cv_tag;
         
         //メイン画像
         //dd($request->hasFile('main_image'));

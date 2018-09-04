@@ -18,6 +18,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <script src="{{ secure_asset('js/jquery.matchHeight.js') }}"></script>
+@if(\Route::current() -> getName() == 'company.show' || \Route::current() -> getName() == 'job.show' || \Route::current() -> getName() == 'search.result' || \Route::current() -> getName() == 'entry.get')
+{!! $user->retarge_tag !!}
+@endif
 @if(\Route::current() -> getName() == 'entry.post')
 {!! $user->display_url !!}
 @endif

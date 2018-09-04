@@ -178,6 +178,20 @@
                         <span class="help-block">{{$errors->first('copyright')}}</span>
             		</div>
             	</div>
+            	<div class="form-group @if(!empty($errors->first('retarge_tag'))) has-error @endif">
+            		{!! Form::label('retarge_tag', 'リターゲティング用タグ', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-8">
+                        {!! Form::textarea('retarge_tag', old('retarge_tag'), ['class' => 'form-control', 'rows' => '4']) !!}
+                        <span class="help-block">{{$errors->first('retarge_tag')}}</span>
+            		</div>
+            	</div>
+            	<div class="form-group @if(!empty($errors->first('cv_tag'))) has-error @endif">
+            		{!! Form::label('cv_tag', 'CV計測用タグ', ['class'=>'col-sm-3 control-label']) !!}
+            		<div class="col-sm-8">
+                        {!! Form::textarea('cv_tag', old('cv_tag'), ['class' => 'form-control', 'rows' => '4']) !!}
+                        <span class="help-block">{{$errors->first('cv_tag')}}</span>
+            		</div>
+            	</div>
             	<div class="text-center mt40">{!! Form::submit('新規登録', ['class' => 'btn btn-primary']) !!}</div>
             {!! Form::close() !!}
         </div>
