@@ -35,7 +35,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
 
     //管理画面
-    Route::get('/', function() { return view('users.index'); });
+    Route::get('/', 'UsersController@index')->name('user.index');
     Route::get('/{id}', 'UsersController@show')->name('user.show')->where('id', '[0-9]+');
     Route::get('/{id}/edit', 'UsersController@edit')->name('user.edit');
     Route::put('/{id}', 'UsersController@update')->name('user.update');
@@ -97,9 +97,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
 //個社TOP
 Route::get('/{display_url}', 'HomeController@company')->name('company.show');
 Route::get('/{display_url}/result', 'HomeController@search_result')->name('search.result');
-Route::get('/{display_url}/{id}', 'HomeController@show')->name('job.show');
+Route::get('/{display_url}/job_{id}', 'HomeController@show')->name('job.show');
 
 //エントリー
-Route::get('/{display_url}/{id}/entry', 'HomeController@create')->name('entry.get');
-Route::post('/{display_url}/{id}/entry/confirm', 'HomeController@confirm')->name('entry.confirm');
-Route::post('/{display_url}/{id}/entry/thanks', 'HomeController@store')->name('entry.post');
+Route::get('/{display_url}/job_{id}/entry', 'HomeController@create')->name('entry.get');
+Route::post('/{display_url}/job_{id}/entry/confirm', 'HomeController@confirm')->name('entry.confirm');
+//エントリー（簡易）
+Route::get('/{display_url}/job_{id}/light_entry', 'HomeController@light_create')->name('light.get');
+Route::post('/{display_url}/job_{id}/entry/light_confirm', 'HomeController@light_confirm')->name('light.confirm');
+//サンクスページ
+Route::post('/{display_url}/job_{id}/entry/thanks', 'HomeController@store')->name('entry.post');

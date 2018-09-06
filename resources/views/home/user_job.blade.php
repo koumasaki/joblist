@@ -110,7 +110,11 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-center"><a href="{{ route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}" class="btn btn-danger btn-lg">エントリーする</a></div>
+            <div class="text-center">@if($job->simple_form === 'simple')
+            <a href="{{ route('light.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}" class="btn btn-danger btn-lg">エントリーする</a>
+            @else<a href="{{ route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}" class="btn btn-danger btn-lg">エントリーする</a>
+            @endif
+            </div>
         </div>
     </div>
 </div>

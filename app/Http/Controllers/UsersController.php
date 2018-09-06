@@ -9,6 +9,26 @@ use Image;
 
 class UsersController extends Controller
 {
+    public function index()
+    {
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $jobs = $user->jobs()->where('release', 'release')->orderBy('created_at', 'desc')->paginate(10);
+            $today = date("Y-m-d");
+            $entries = $user->entries()->whereDate('created_at', $today)->orderBy('created_at', 'desc')->get();
+            
+            $data = [
+                'user' => $user,
+                'jobs' => $jobs,
+                'entries' => $entries,
+            ];
+            $data += $this->counts($user);
+            return view('users.index', $data);
+        }else {
+            return view('welcome');
+        }
+    }
     //ユーザー登録削除
     public function destroy($id)
     {

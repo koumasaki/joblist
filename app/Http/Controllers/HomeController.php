@@ -60,46 +60,18 @@ class HomeController extends Controller
         $job_status = $request->job_status;
         $pref = $request->pref;
         
-        if (is_null($job_category) && is_null($job_status)) {
-            $jobs = $user->jobs()
+        $jobs = $user->jobs()
                 ->where('release', 'release')
-                ->where('pref', $pref)
                 ->orderBy('created_at', 'desc')->paginate(10);
-        } elseif (is_null($job_category) && is_null($pref)) {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_status', $job_status)
-                ->orderBy('created_at', 'desc')->paginate(10);
-        } elseif (is_null($job_category)) {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_status', $job_status)
-                ->where('pref', $pref)
-                ->orderBy('created_at', 'desc')->paginate(10);
-        } elseif (is_null($job_status) && is_null($pref)) {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_category', $job_category)
-                ->orderBy('created_at', 'desc')->paginate(10);
-        } elseif (is_null($job_status)) {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_category', $job_category)
-                ->where('pref', $pref)
-                ->orderBy('created_at', 'desc')->paginate(10);
-        } elseif (is_null($pref)) {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_category', $job_category)
-                ->where('job_status', $job_status)
-                ->orderBy('created_at', 'desc')->paginate(10);
-        } else {
-            $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->where('job_category', $job_category)
-                ->where('job_status', $job_status)
-                ->where('pref', $pref)
-                ->orderBy('created_at', 'desc')->paginate(10);
+        
+        if (!is_null($job_category)) {
+            $jobs = $jobs->where('job_category', $job_category);
+        }
+        if (!is_null($job_status)) {
+            $jobs = $jobs->where('job_status', $job_status);
+        }
+        if (!is_null($pref)) {
+            $jobs = $jobs->where('pref', $pref);
         }
 
         $data = [
@@ -138,6 +110,61 @@ class HomeController extends Controller
         ]);
     }
 
+    //エントリーフォーム（簡易）
+    public function light_create($display_url, $id)
+    {
+        $user = User::where('display_url', $display_url)->first();
+        $job = Job::find($id);
+        $entry = new Entry;
+        
+        return view('home.light_entry', [
+            'user' => $user,
+            'job' => $job,
+            'entry' => $entry,
+        ]);
+    }
+    
+    // 確認画面（簡易）
+    public function light_confirm(Request $request, $display_url, $id)
+    {
+        // データを受け取る(postで飛んでくるのでsotreと同じ仕組み)
+        $this->validate($request, [
+            'name' => 'required|max:191',
+            'gender' => 'required',
+            'year' => 'required',
+            'month' => 'required',
+            'day' => 'required',
+            'mail' => 'required|email',
+            'tel' => 'required|numeric',
+            'zip' => 'required',
+            'address' => 'required',
+        ]);
+        
+        $entry = new Entry;
+        $entry->job_name = $request->job_name;
+        $entry->job_place = $request->job_place;
+        $entry->name = $request->name;
+        $entry->gender = $request->gender;
+        $entry->year = $request->year;
+        $entry->month = $request->month;
+        $entry->day = $request->day;
+        $entry->mail = $request->mail;
+        $entry->tel = $request->tel;
+        $entry->zip = $request->zip;
+        $entry->address = $request->address;
+        $entry->myself = $request->myself;
+
+        // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
+        $user = User::where('display_url', $display_url)->first();
+        $job = Job::find($id);
+        
+        return view('home.light_entry_confirm', [
+            'user' => $user,
+            'job' => $job,
+            'entry' => $entry,
+        ]);
+    }
+
     //エントリーフォーム
     public function create($display_url, $id)
     {
@@ -164,6 +191,9 @@ class HomeController extends Controller
             'day' => 'required',
             'mail' => 'required|email',
             'tel' => 'required|numeric',
+            'zip' => 'required',
+            'address' => 'required',
+            'myself' => 'required',
         ]);
         
         $entry = new Entry;
@@ -192,7 +222,7 @@ class HomeController extends Controller
             'entry' => $entry,
         ]);
     }
-    
+
     //入力内容保存
     public function store(Request $request, $display_url, $id)
     {
@@ -203,6 +233,13 @@ class HomeController extends Controller
         if ($request->action === '戻る') {
         return redirect()
             ->route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id])
+            ->withInput($input);
+        }
+        
+        $input = $request->except('light_action');
+        if ($request->light_action === '戻る') {
+        return redirect()
+            ->route('light.get', ['display_url' => $user->display_url, 'id' => $job->id])
             ->withInput($input);
         }
         

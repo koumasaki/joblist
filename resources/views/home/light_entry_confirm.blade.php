@@ -62,18 +62,6 @@
                             <th>住所</th>
                             <td>{{ $entry->address }}<input type="hidden" id="address" name="address" value="{{ $entry->address }}"></td>
                         </tr>
-                        @if($entry->carreer)
-                        <tr>
-                            <th>職務経歴</th>
-                            <td>{!! nl2br(e($entry->carreer)) !!}<input type="hidden" id="carreer" name="carreer" value="{{ $entry->carreer }}"></td>
-                        </tr>
-                        @endif
-                        @if($entry->qualification)
-                        <tr>
-                            <th>保有資格</th>
-                            <td>{!! nl2br(e($entry->qualification)) !!}<input type="hidden" id="qualification" name="qualification" value="{{ $entry->qualification }}"></td>
-                        </tr>
-                        @endif
                         @if($entry->myself)
                         <tr>
                             <th>自己PR</th>
@@ -82,8 +70,8 @@
                         @endif
                     </tbody>
                 </table>
-                {!! Form::submit('送信する', ['name' => 'action', 'class' => 'btn btn-primary']) !!}
-                {!! Form::submit('戻る', ['name' => 'action', 'class' => 'btn']) !!}
+                {!! Form::submit('送信する', ['name' => 'light_action', 'class' => 'btn btn-primary']) !!}
+                {!! Form::submit('戻る', ['name' => 'light_action', 'class' => 'btn']) !!}
             {!! Form::close() !!}
         </div>
     </div>

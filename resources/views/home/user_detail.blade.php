@@ -33,11 +33,11 @@
     </div>-->
 </div>
 
-<div class="gray_flame mb50">
-    <div class="container" id="corporation">
+<div class="comp_flame mb50">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h3 class="catch_copy mb30">{{ $user->company_copy }}</h3>
+                <h3 class="catch_copy mb30" id="corporation">{{ $user->company_copy }}</h3>
             </div>
             <div class="col-md-6 mb40">
                 <p class="mb0">{!! nl2br(e($user->company_summary)) !!}</p>
@@ -68,9 +68,9 @@
     </div>
 </div>
 
-<div class="container mb30" id="recruit">
+<div class="container" id="recruit">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10 col-md-offset-1">
             @if($count_jobs > 0)
             @foreach ($jobs as $job)
             <?php $user = $job->user; ?>
@@ -80,10 +80,9 @@
             <p class="mb40">現在、募集要項は公開しておりません。<br>採用活動を再開した際には、こちらのページで募集要項をご案内いたします。</p>
             @endif
         </div>
-        <div class="col-md-4">
-@include('commons.search_form')
-
-        </div>
     </div>
+</div>
+<div class="container mb60">
+@include('commons.search_form')
 </div>
 @endsection

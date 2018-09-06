@@ -33,7 +33,15 @@
                         </tr>
                         <tr>
                             <td colspan="3" class="fs13">
-                                <strong class="red">応募職種：</strong>{{ $entry->job_name }}　<strong class="red">勤務地：</strong>{{ $entry->job_place }}
+                                <strong class="red">応募職種：</strong>{{ $entry->job_name }}　<strong class="red">勤務地：</strong><?php 
+                                    if (mb_strlen($entry->job_place) < 20) {
+                                        $place = $entry->job_place;
+                                        echo $entry->job_place;
+                                    } else {
+                                        $place = mb_substr( $entry->job_place, 0, 20);
+                                        echo $place. '...';
+                                    }
+                                     ?>
                             </td>
                             <td>{!! Form::model($entry, ['route' => ['entry.update', $entry->id], 'class' => 'form-horizontal', 'method' => 'put']) !!}
                                     <div class="form-inline">進捗更新：

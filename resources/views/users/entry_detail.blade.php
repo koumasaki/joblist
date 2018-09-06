@@ -62,8 +62,9 @@
             </table>
             {!! Form::open(['route' => ['entry.delete', $entry->id], 'method' => 'delete']) !!}
                 {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+                <a href="{{ route('entry.index') }}" class="btn btn-primary">一覧に戻る</a>
+                <a href="{{ route('mail.create', ['id' => $entry->id]) }}" class="btn btn-success">メールを送る</a>
             {!! Form::close() !!}
-            <div class="btn btn-success"><a href="{{ route('mail.create', ['id' => $entry->id]) }}">メールを送る</a></div>
         </div>
     </div>
 @endsection

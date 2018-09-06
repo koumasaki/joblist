@@ -32,11 +32,11 @@
                         @if(!is_null($job->job_image))
                         <div class="col-sm-8">
                             <p class="mb15"><?php 
-                            if (mb_strlen($job->detail) < 25) {
+                            if (mb_strlen($job->detail) < 35) {
                                 $joboutline = $job->detail;
                                 echo $joboutline;
                             } else {
-                                $joboutline = mb_substr( $job->detail, 0, 25);
+                                $joboutline = mb_substr( $job->detail, 0, 35);
                                 echo $joboutline. '...';
                             }
                              ?></p>
@@ -45,11 +45,11 @@
                                     <tr>
                                         <th>給与</th>
                                         <td><?php 
-                            if (mb_strlen($job->salary) < 15) {
+                            if (mb_strlen($job->salary) < 25) {
                                 $jobsalary = $job->salary;
                                 echo $jobsalary;
                             } else {
-                                $jobsalary = mb_substr( $job->salary, 0, 15);
+                                $jobsalary = mb_substr( $job->salary, 0, 25);
                                 echo $jobsalary. '...';
                             }
                              ?></td>
@@ -57,11 +57,11 @@
                                     <tr>
                                         <th>勤務地</th>
                                         <td><?php 
-                            if (mb_strlen($job->place) < 15) {
+                            if (mb_strlen($job->place) < 25) {
                                 $jobplace = $job->place;
                                 echo $jobplace;
                             } else {
-                                $jobplace = mb_substr( $job->place, 0, 15);
+                                $jobplace = mb_substr( $job->place, 0, 25);
                                 echo $jobplace. '...';
                             }
                              ?></td>
@@ -121,7 +121,13 @@
                 </div>
                 <div class="job_flame_footer">
                     <div class="btn_detail"><a href="{{ route('job.show', ['id' => $job->id, 'display_url' => $user->display_url]) }}"><img src="{{ secure_asset('images/common/btn_detail.jpg') }}"></a></div>
-                    <div class="btn_entry"><a href="{{ route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}"><img src="{{ secure_asset('images/common/btn_entry.jpg') }}" alt="応募する"></a></div>
+                    <div class="btn_entry">
+                        @if($job->simple_form === 'simple')
+                        <a href="{{ route('light.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}"><img src="{{ secure_asset('images/common/btn_entry.jpg') }}" alt="応募する"></a>
+                        @else
+                        <a href="{{ route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}"><img src="{{ secure_asset('images/common/btn_entry.jpg') }}" alt="応募する"></a>
+                        @endif
+                    </div>
                     <div class="update">
                         <p class="fs12 mb0">情報更新日：{{ $job->updated_at->format('Y年m月d日') }}</p>
                     </div>
