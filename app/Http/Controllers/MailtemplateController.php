@@ -77,10 +77,14 @@ class MailtemplateController extends Controller
     public function edit($id)
     {
         $mailtemplate = Mailtemplate::find($id);
+        if (is_null($mailtemplate) or \Auth::id() !== $mailtemplate->user_id) {
+            abort('404');
 
-        return view('users.mailtemplate_edit', [
-            'mailtemplate' => $mailtemplate,
-        ]);
+        } else {
+            return view('users.mailtemplate_edit', [
+                'mailtemplate' => $mailtemplate,
+            ]);
+        };
     }
 
     /**

@@ -2,34 +2,50 @@
 
 <source>
 <publisher>SiteName</publisher>
-<publisherurl>http://www.SiteName.com</publisherurl>
+<publisherurl>{{ url('/') }}</publisherurl>
 <?php $now = date("D, d M Y H:i:s T"); ?>
 <lastBuildDate><?php echo $now; ?></lastBuildDate>
 @foreach($jobs as $job)
 <job>
 <title><![CDATA[{{ $job->job_name }}]]></title>
 <date><![CDATA[{{ $job->updated_at->format('D, d M Y H:i:s T') }}]]></date>
-<referencenumber><![CDATA[ ]]></referencenumber>
-<url><![CDATA[]]></url>
-<company><![CDATA[{{ $job->$user->company }}]]></company>
-<city><![CDATA[Phoenix]]></city>
-<state><![CDATA[AZ]]></state>
+<referencenumber><![CDATA[{{ 'job_'.$job->id }}]]></referencenumber>
+<url><![CDATA[{{ url('/'. $job->user->display_url. '/job_'. $job->id) }}]]></url>
+<company><![CDATA[{{ $job->user->company }}]]></company>
+<city><![CDATA[{{ $job->state }}]]></city>
+<state><![CDATA[{{ $job->pref }}]]></state>
 <country><![CDATA[日本]]></country>
-<postalcode><![CDATA[85003]]></postalcode>
-<description><![CDATA[Do you have 5-7 years of sales experience? Are you
-relentless at closing the deal? Are you ready for an exciting and
-high-speed career in sales? If so, we want to hear from you!
-
-We provide competitive compensation, including stock options and a full
-benefit plan. As a fast-growing business, we offer excellent
-opportunities for exciting and challenging work. As our company
-continues to grow, you can expect unlimited career advancement!
-]]></description>
-<salary><![CDATA[$70K per year]]></salary>
+<postalcode><![CDATA[{{ $job->zip }}]]></postalcode>
+<description><![CDATA[{{ $job->detail }}]]></description>
+<salary><![CDATA[{{ $job->salary }}]]></salary>
 <education><![CDATA[Bachelors]]></education>
-<jobtype><![CDATA[fulltime]]></jobtype>
-<category><![CDATA[Sales Management, Executive]]></category>
-<experience><![CDATA[5+ years]]></experience>
+<jobtype><![CDATA[<?php 
+    switch($job->job_status) {
+        case 'regular':
+            echo '正社員';
+            break;
+        case 'contractor':
+            echo '契約社員';
+            break;
+        case 'parttime':
+            echo 'パート';
+            break;
+        case 'arbite':
+            echo 'アルバイト';
+            break;
+        case 'temp':
+            echo '派遣社員';
+            break;
+        case 'commission':
+            echo '嘱託';
+            break;
+        case 'others':
+            echo 'その他';
+            break;
+    }
+    ?>]]></jobtype>
+<category><![CDATA[{{ $job->category }}]]></category>
+<experience><![CDATA[{{ $job->qualification }}]]></experience>
 </job>
 @endforeach
 </source>

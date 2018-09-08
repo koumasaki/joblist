@@ -17,12 +17,6 @@ class EntriesController extends Controller
             //ログインユーザーの仕事情報
             $jobs = $user->jobs();
             $entries = $user->entries()->orderBy('created_at', 'desc')->paginate(10);
-            
-            //ログインユーザーの仕事情報に対するエントリー
-            //$entries = [];
-            //foreach($jobs as $job) {
-            //    $entries[] = $job->entries()->orderBy('created_at', 'desc')->paginate(10);
-            //}
 
             $data = [
                 'user' => $user,
@@ -32,7 +26,7 @@ class EntriesController extends Controller
             $data += $this->counts($user);
             return view('users.entry_index', $data);
         }else {
-            return view('welcome');
+            abort('404');
         }
     }
 
@@ -42,13 +36,19 @@ class EntriesController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $entry = $user->entries()->find($id);
-        }
-        $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
-        return view('users.entry_detail', [
-            'user' => $user,
-            'entry' => $entry,
-            'zip' => $zip,
-        ]);
+
+            if (is_null($entry) or \Auth::id() !== $entry->user_id) {
+                abort('404');
+    
+            } else {
+                $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
+                return view('users.entry_detail', [
+                    'user' => $user,
+                    'entry' => $entry,
+                    'zip' => $zip,
+                ]);                
+            }
+        };
     }
     
     //エントリー情報編集登録
@@ -63,7 +63,7 @@ class EntriesController extends Controller
         $entry->status = $request->status;
         $entry->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', '進捗状況を更新しました。');
     }
 
     //エントリーデータ削除

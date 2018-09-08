@@ -23,7 +23,7 @@ class JobsController extends Controller
             $data += $this->counts($user);
             return view('users.job_index', $data);
         }else {
-            return view('welcome');
+            abort('404');
         }
     }
     //募集要項新規登録
@@ -91,10 +91,15 @@ class JobsController extends Controller
     public function edit($id)
     {
         $job = Job::find($id);
+        if (is_null($job) or \Auth::id() !== $job->user_id) {
+            abort('404');
 
-        return view('users.job_edit', [
-            'job' => $job,
-        ]);
+        } else {
+
+            return view('users.job_edit', [
+                'job' => $job,
+            ]);
+        };
     }
 
     //募集要項編集登録

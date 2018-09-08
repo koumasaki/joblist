@@ -42,14 +42,20 @@ class SendMailsController extends Controller
     {
         $user = \Auth::user();
         $entry = $user->entries()->find($id);
-        $mailtemplates = $user->mailtemplates()->get();
 
-        $sendmail = new Sendmail;
-        return view('users.mail_create', [
-            'sendmail' => $sendmail,
-            'entry' => $entry,
-            'mailtemplates' => $mailtemplates,
-        ]);
+        if (is_null($entry) or \Auth::id() !== $entry->user_id) {
+            abort('404');
+
+        } else {
+            $mailtemplates = $user->mailtemplates()->get();
+    
+            $sendmail = new Sendmail;
+            return view('users.mail_create', [
+                'sendmail' => $sendmail,
+                'entry' => $entry,
+                'mailtemplates' => $mailtemplates,
+            ]);
+        };
     }
 
     /**
@@ -64,15 +70,21 @@ class SendMailsController extends Controller
     {
         $user = \Auth::user();
         $entry = $user->entries()->find($id);
-        $mailtemplates = $user->mailtemplates()->get();
-        
-        $template = $user->mailtemplates()->find($request->template_id);
-        
-        return view('users.mail_create', [
-            'entry' => $entry,
-            'mailtemplates' => $mailtemplates,
-            'template' => $template,
-        ]);
+
+        if (is_null($entry) or \Auth::id() !== $entry->user_id) {
+            abort('404');
+
+        } else {
+            
+            $mailtemplates = $user->mailtemplates()->get();
+            $template = $user->mailtemplates()->find($request->template_id);
+            
+            return view('users.mail_create', [
+                'entry' => $entry,
+                'mailtemplates' => $mailtemplates,
+                'template' => $template,
+            ]);
+        };
     }
     
     //入力内容保存

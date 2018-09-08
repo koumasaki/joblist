@@ -35,7 +35,7 @@ class HomeController extends Controller
         $user = User::where('display_url', $id)->first(); // display_url が存在しないときもある。
 
         if (is_null($user)) {
-            return redirect('/');
+            abort('404');
 
         } else {
             $jobs = $user->jobs()->where('release', 'release')->orderBy('created_at', 'desc')->paginate(10);
@@ -56,33 +56,36 @@ class HomeController extends Controller
     {
         $user = User::where('display_url', $id)->first();
         
-        $job_category = $request->job_category;
-        $job_status = $request->job_status;
-        $pref = $request->pref;
-        
-        $jobs = $user->jobs()
-                ->where('release', 'release')
-                ->orderBy('created_at', 'desc')->paginate(10);
-        
-        if (!is_null($job_category)) {
-            $jobs = $jobs->where('job_category', $job_category);
-        }
-        if (!is_null($job_status)) {
-            $jobs = $jobs->where('job_status', $job_status);
-        }
-        if (!is_null($pref)) {
-            $jobs = $jobs->where('pref', $pref);
-        }
+        if (is_null($user)) {
+            abort('404');
 
-        $data = [
-            'user' => $user,
-            'jobs' => $jobs,
-            'job_category' => $job_category,
-            'job_status' => $job_status,
-            'pref' => $pref,
-        ];
-        $data += $this->counts($user);
-        return view('home.search_result', $data);
+        } else {
+
+            $job_category = $request->job_category;
+            $job_status = $request->job_status;
+            $pref = $request->pref;
+            
+            $jobs = $user->jobs()
+                    ->where('release', 'release')
+                    ->orderBy('created_at', 'desc')->paginate(10);
+            
+            if (!is_null($job_category)) {
+                $jobs = $jobs->where('job_category', $job_category);
+            }
+            if (!is_null($job_status)) {
+                $jobs = $jobs->where('job_status', $job_status);
+            }
+            if (!is_null($pref)) {
+                $jobs = $jobs->where('pref', $pref);
+            }
+    
+            $data = [
+                'user' => $user,
+                'jobs' => $jobs,
+            ];
+            $data += $this->counts($user);
+            return view('home.search_result', $data);
+        };
     }
 
     //個別募集要項表示
@@ -91,17 +94,17 @@ class HomeController extends Controller
         // 会社がなかったときは？
         $user = User::where('display_url', $display_url)->first();  // display_url が存在しないときもある。
         if (is_null($user)) {
-            return redirect('/');
+            abort('404');
         } else {
             $job = $user->jobs()->find($id);
             if (is_null($job)) {
-                return redirect('/');
+                abort('404');
             }
         };
 
         // $job が公開か非公開か判別して　非公開だったら 「ページは存在しません」などのビューを表示
         if ($job->release === 'unrelease') {
-            return redirect('/');
+            abort('404');
         };
 
         return view('home.user_job', [
@@ -114,7 +117,16 @@ class HomeController extends Controller
     public function light_create($display_url, $id)
     {
         $user = User::where('display_url', $display_url)->first();
-        $job = Job::find($id);
+        if (is_null($user)) {
+            abort('404');
+
+        } else {
+            $job = $user->jobs()->find($id);
+            if (is_null($job)) {
+                abort('404');
+            }
+        };
+
         $entry = new Entry;
         
         return view('home.light_entry', [
@@ -127,7 +139,6 @@ class HomeController extends Controller
     // 確認画面（簡易）
     public function light_confirm(Request $request, $display_url, $id)
     {
-        // データを受け取る(postで飛んでくるのでsotreと同じ仕組み)
         $this->validate($request, [
             'name' => 'required|max:191',
             'gender' => 'required',
@@ -139,7 +150,20 @@ class HomeController extends Controller
             'zip' => 'required',
             'address' => 'required',
         ]);
-        
+
+        // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
+        $user = User::where('display_url', $display_url)->first();
+
+        if (is_null($user)) {
+            abort('404');
+
+        } else {
+            $job = $user->jobs()->find($id);
+            if (is_null($job)) {
+                abort('404');
+            }
+        };
+
         $entry = new Entry;
         $entry->job_name = $request->job_name;
         $entry->job_place = $request->job_place;
@@ -154,10 +178,6 @@ class HomeController extends Controller
         $entry->address = $request->address;
         $entry->myself = $request->myself;
 
-        // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
-        $user = User::where('display_url', $display_url)->first();
-        $job = Job::find($id);
-        
         return view('home.light_entry_confirm', [
             'user' => $user,
             'job' => $job,
@@ -169,7 +189,16 @@ class HomeController extends Controller
     public function create($display_url, $id)
     {
         $user = User::where('display_url', $display_url)->first();
-        $job = Job::find($id);
+        if (is_null($user)) {
+            abort('404');
+
+        } else {
+            $job = $user->jobs()->find($id);
+            if (is_null($job)) {
+                abort('404');
+            }
+        };
+        
         $entry = new Entry;
         
         return view('home.entry', [
@@ -195,7 +224,19 @@ class HomeController extends Controller
             'address' => 'required',
             'myself' => 'required',
         ]);
-        
+
+        // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
+        $user = User::where('display_url', $display_url)->first();
+        if (is_null($user)) {
+            abort('404');
+
+        } else {
+            $job = $user->jobs()->find($id);
+            if (is_null($job)) {
+                abort('404');
+            }
+        };
+
         $entry = new Entry;
         $entry->job_name = $request->job_name;
         $entry->job_place = $request->job_place;
@@ -212,10 +253,6 @@ class HomeController extends Controller
         $entry->qualification = $request->qualification;
         $entry->myself = $request->myself;
 
-        // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
-        $user = User::where('display_url', $display_url)->first();
-        $job = Job::find($id);
-        
         return view('home.entry_confirm', [
             'user' => $user,
             'job' => $job,
@@ -227,7 +264,15 @@ class HomeController extends Controller
     public function store(Request $request, $display_url, $id)
     {
         $user = User::where('display_url', $display_url)->first();
-        $job = Job::find($id);
+        if (is_null($user)) {
+            abort('404');
+
+        } else {
+            $job = $user->jobs()->find($id);
+            if (is_null($job)) {
+                abort('404');
+            }
+        };
         
         $input = $request->except('action');
         if ($request->action === '戻る') {

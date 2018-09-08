@@ -26,7 +26,7 @@ class UsersController extends Controller
             $data += $this->counts($user);
             return view('users.index', $data);
         }else {
-            return view('welcome');
+            abort('404');
         }
     }
     //ユーザー登録削除
@@ -42,19 +42,29 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        if (is_null($user) or \Auth::id() !== $user->id) {
+            abort('404');
 
-        return view('users.user_detail', [
-            'user' => $user,
-        ]);
+        } else {
+
+            return view('users.user_detail', [
+                'user' => $user,
+            ]);
+        };
     }
      //個別ユーザー登録編集フォーム
     public function edit($id)
     {
         $user = User::find($id);
+        if (is_null($user) or \Auth::id() !== $user->id) {
+            abort('404');
 
-        return view('users.user_edit', [
-            'user' => $user,
-        ]);
+        } else {
+
+            return view('users.user_edit', [
+                'user' => $user,
+            ]);
+        };
     }
     
     //個別ユーザー登録編集内容保存
