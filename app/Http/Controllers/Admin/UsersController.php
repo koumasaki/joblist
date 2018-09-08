@@ -46,12 +46,22 @@ class UsersController extends Controller
     public function user_store(Request $request)
     {
         $this->validate($request, [
-            'company' => 'required|string|max:255',
-            'display_url' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'name' => 'required|string|max:255',
-            'zip' => 'required|string|max:255',
+            'company' => 'required|string',
+            'display_url' => 'required|string|unique:users',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'name' => 'required|string',
+            'zip' => 'required|string',
+            'address' => 'required|string',
+            'tel' => 'required|string',
+            'catch_copy' => 'required|string',
+            'company_copy' => 'required|string',
+            'company_summary' => 'required|string',
+            'service_copy' => 'required|string',
+            'service_summary' => 'required|string',
+            'copyright' => 'required|string',
+            'main_image' => 'file|image|dimensions:min_width=1600',
+            'logo_image' => 'file|image|dimensions:max_width=250',
         ]);
         
         //createで保存

@@ -71,9 +71,17 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'zip' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191',
+            'email' => 'required|string|email|unique:users',
+            'name' => 'required|string',
+            'zip' => 'required|string',
+            'address' => 'required|string',
+            'tel' => 'required|string',
+            'catch_copy' => 'required|string',
+            'company_copy' => 'required|string',
+            'company_summary' => 'required|string',
+            'service_copy' => 'required|string',
+            'service_summary' => 'required|string',
+            'copyright' => 'required|string',
             'main_image' => 'file|image|dimensions:min_width=1600',
             'logo_image' => 'file|image|dimensions:max_width=250',
         ]);

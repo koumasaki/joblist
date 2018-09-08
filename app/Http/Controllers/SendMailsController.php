@@ -29,7 +29,7 @@ class SendMailsController extends Controller
             $data += $this->counts($user);
             return view('users.mail_index', $data);
         }else {
-            return view('welcome');
+            abort('404');
         }
     }
 

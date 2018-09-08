@@ -22,7 +22,7 @@
 {!! $user->retarge_tag !!}
 @endif
 @if(\Route::current() -> getName() == 'entry.post')
-{!! $user->display_url !!}
+{!! $user->cv_tag !!}
 @endif
 </body>
 </html>

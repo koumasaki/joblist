@@ -49,7 +49,15 @@
                                     break;
                             }
                         ?></td>
-                        <td>{{ $job->place }}</td>
+                        <td><?php 
+                                    if (mb_strlen($job->place) < 20) {
+                                        $jobplace = $job->place;
+                                        echo $job->place;
+                                    } else {
+                                        $jobplace = mb_substr( $job->place, 0, 20);
+                                        echo $jobplace. '...';
+                                    }
+                                     ?></td>
                         <td rowspan="2">@if($job->release === 'release')<?php echo '公開'; ?>@else<?php echo '未公開'; ?>@endif</td>
                         <td rowspan="2">
                             {!! link_to_route('job.edit', '編集', ['id' => $job->id], ['class'=>'btn btn-primary btn-xs']) !!}
@@ -63,7 +71,7 @@
                         <td rowspan="2">{{ $job->entries()->count() }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">memo</td>
+                        <td colspan="2">備考：{{ $job->memo }}</td>
                     </tr>
                     @endforeach
                 </tbody>

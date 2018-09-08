@@ -37,11 +37,22 @@ class JobsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'job_name' => 'required|max:191',
-            'job_status' => 'required|max:191',
+            'job_name' => 'required',
+            'job_status' => 'required',
+            'job_copy' => 'required',
             'detail' => 'required',
-            'qualification' => 'required|max:191',
+            'qualification' => 'required',
+            'salary' => 'required',
+            'place' => 'required',
+            'time' => 'required',
+            'entry_method' => 'required',
+            'job_category' => 'required',
+            'zip' => 'required',
+            'pref' => 'required',
+            'state' => 'required',
             'release' => 'required',
+            'sender_mail' => 'required',
+            'simple_form' => 'required',
         ]);
 
         $job = new Job;
@@ -106,10 +117,22 @@ class JobsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'job_status' => 'required|max:191',
+            'job_name' => 'required',
+            'job_status' => 'required',
+            'job_copy' => 'required',
             'detail' => 'required',
-            'qualification' => 'required|max:191',
+            'qualification' => 'required',
+            'salary' => 'required',
+            'place' => 'required',
+            'time' => 'required',
+            'entry_method' => 'required',
+            'job_category' => 'required',
+            'zip' => 'required',
+            'pref' => 'required',
+            'state' => 'required',
             'release' => 'required',
+            'sender_mail' => 'required',
+            'simple_form' => 'required',
         ]);
 
         $job = Job::find($id);
