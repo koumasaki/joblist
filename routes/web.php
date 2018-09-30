@@ -51,9 +51,11 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
 
     //エントリー
     Route::get('/entries', 'EntriesController@index')->name('entry.index');
+    Route::get('/entries/csv', 'EntriesController@downloadCSV')->name('entry.csv');
     Route::get('/entries/{id}', 'EntriesController@show')->name('entry.show');
     Route::put('/entries/{id}', 'EntriesController@update')->name('entry.update');
     Route::delete('/entries/{id}', 'EntriesController@destroy')->name('entry.delete');
+    Route::get('/entries/job/{id}', 'EntriesController@refine')->name('refine.index');
 
     //メール送信
     Route::get('/mails', 'SendMailsController@index')->name('mail.index');

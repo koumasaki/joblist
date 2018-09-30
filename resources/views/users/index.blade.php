@@ -18,7 +18,7 @@
                         <th>勤務地</th>
                         <th>公開設定</th>
                         <th>操作</th>
-                        <th>件数</th>
+                        <th>応募件数</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +69,7 @@
                                 {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
                             {!! Form::close() !!}
                         </td>
-                        <td rowspan="2">{{ $job->entries()->count() }}</td>
+                        <td rowspan="2"><a href="{{ route('refine.index', ['id' => $job->id]) }}">{{ $job->entries()->count() }}</a></td>
                     </tr>
                     <tr>
                         <td colspan="2">備考：{{ $job->memo }}</td>

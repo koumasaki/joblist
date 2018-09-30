@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Job;
 use App\Entry;
 
@@ -25,6 +26,35 @@ class EntriesController extends Controller
             ];
             $data += $this->counts($user);
             return view('users.entry_index', $data);
+        }else {
+            abort('404');
+        }
+    }
+
+    //募集要項別のエントリー一覧
+    public function refine($id)
+    {
+        $data = [];
+        if (\Auth::check()) {
+            //ログインユーザー
+            $user = \Auth::user();
+            //ログインユーザーの仕事情報
+            $jobs = $user->jobs();
+            $job = $user->jobs()->find($id);
+            if(is_null($job) or $id != $job->id) {
+                abort('404');
+            } else {
+                $entries = $user->entries()->where('job_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+            }
+
+            $data = [
+                'user' => $user,
+                'jobs' => $jobs,
+                'job' => $job,
+                'entries' => $entries,
+            ];
+            $data += $this->counts($user);
+            return view('users.entry_refine', $data);
         }else {
             abort('404');
         }
@@ -76,5 +106,25 @@ class EntriesController extends Controller
         }
 
         return redirect('/user/entries');
+    }
+
+    public function downloadCSV()
+    {
+        $user = \Auth::user();
+        $entries = \App\Entry::where('user_id', $user->id)->get(['name', 'gender', 'birthday', 'mail', 'tel', 'zip', 'address', 'carreer', 'qualification', 'myself', 'created_at'])->toArray();
+        $csvHeader = ['名前', '性別', '生年月日', 'メールアドレス', '電話番号', '郵便番号', '住所', '職務経歴', '保有資格', '自己PR', '登録日'];
+        array_unshift($entries, $csvHeader);   
+        $stream = fopen('php://temp', 'r+b');
+        foreach ($entries as $entry) {
+          fputcsv($stream, $entry);
+        }
+        rewind($stream);
+        $csv = str_replace(PHP_EOL, "\r\n", stream_get_contents($stream));
+        $csv = mb_convert_encoding($csv, 'SJIS-win', 'UTF-8');
+        $headers = array(
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="users.csv"',
+        );
+        return \Response::make($csv, 200, $headers);
     }
 }

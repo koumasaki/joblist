@@ -1,12 +1,12 @@
 @extends('layouts.users_app')
 
-@section('title', ' | エントリー一覧')
+@section('title', ' | '. $job->job_name. 'のエントリー一覧')
 
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h1>エントリー一覧</h1>
+            <h1>{{ $job->job_name }}のエントリー一覧</h1>
             <hr>
             @if($count_entries > 0)
             <div class="table-responsive">
@@ -53,7 +53,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div><a href="{{ action('EntriesController@downloadCSV') }}">csv出力</a></div>
             </div>
             @else
             <p class="mb40">エントリーデータは登録されていません。</p>
