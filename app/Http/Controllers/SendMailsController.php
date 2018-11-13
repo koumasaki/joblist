@@ -86,6 +86,31 @@ class SendMailsController extends Controller
             ]);
         };
     }
+    //メールテンプレート読み込み
+    public function read_template(Request $request, $id)
+    {
+        $user = \Auth::user();
+        $entry = $user->entries()->find($id);
+
+        if (is_null($entry) or \Auth::id() !== $entry->user_id) {
+            abort('404');
+
+        } else {
+            
+            $mailtemplates = $user->mailtemplates()->get();
+            $template = $user->mailtemplates()->find($request->template_id);
+            $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
+            $sendmails = $user->sendmails()->where('entry_id', $id)->orderBy('created_at', 'desc')->paginate(20);
+            
+            return view('users.entry_detail', [
+                'entry' => $entry,
+                'mailtemplates' => $mailtemplates,
+                'template' => $template,
+                'zip' => $zip,
+                'sendmails' => $sendmails,
+            ]);
+        };
+    }
     
     //入力内容保存
     public function store(Request $request, $id)

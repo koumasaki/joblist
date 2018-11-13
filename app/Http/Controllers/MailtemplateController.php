@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Mailtemplate;
+use App\Mailorigin;
 
 class MailtemplateController extends Controller
 {
@@ -28,7 +29,7 @@ class MailtemplateController extends Controller
             $data += $this->counts($user);
             return view('users.mailtemplate_index', $data);
         }else {
-            return view('welcome');
+            return view('403');
         }
     }
 
@@ -40,9 +41,28 @@ class MailtemplateController extends Controller
     public function create()
     {
         $mailtemplate = new Mailtemplate;
+        $mailorigins = Mailorigin::get();
         
         return view('users.mailtemplate_create', [
             'mailtemplate' => $mailtemplate,
+            'mailorigins' => $mailorigins,
+        ]);
+    }
+
+    public function read(Request $request)
+    {
+        $mailtemplate = new Mailtemplate;
+        $mailorigins = Mailorigin::get();
+        $mailorigin = Mailorigin::find($request->mail_id);
+        $mail_title = $mailorigin->title;
+        $mail_body = $mailorigin->body;
+
+        return view('users.mailtemplate_read', [
+            'mailtemplate' => $mailtemplate,
+            'mailorigins' => $mailorigins,
+            'mailorigin' => $mailorigin,
+            'mail_title' => $mail_title,
+            'mail_body' => $mail_body,
         ]);
     }
 

@@ -6,7 +6,7 @@
                             <div class="full">
                                 <div class="col-sm-2 search_title">希望職種</div>
                                 <div class="col-sm-10">
-                                    <div class="form-group">
+                                    <div class="form-group form_home">
                                         {!! Form::select('job_category', [
                             		        '' => '--選択--',
                             		        'sales' => '営業',
@@ -34,7 +34,7 @@
                             <div class="half">
                                 <div class="col-sm-4 search_title">勤務地</div>
                                 <div class="col-sm-8">
-                                    <div class="form-group">
+                                    <div class="form-group form_home">
                                         {!! Form::select('pref', [
                             		        '' => '--選択--',
                             		        '北海道' => '北海道',
@@ -91,16 +91,15 @@
                             <div class="half">
                                 <div class="col-sm-4 search_title">雇用形態</div>
                                 <div class="col-sm-8">
-                                    <div class="form-group">
+                                    <div class="form-group form_home">
                 		                {!! Form::select('job_status', [
                             		        '' => '--選択--',
-                            		        'regular' => '正社員',
-                            		        'contractor' => '契約社員',
-                            		        'parttime' => 'パート',
-                            		        'arbite' => 'アルバイト',
-                            		        'temp' => '派遣社員',
-                            		        'commission' => '嘱託',
-                            		        'others' => 'その他'
+                            		        'FULL_TIME' => '正社員',
+                            		        'CONTRACTOR' => '契約社員',
+                            		        'PART_TIME' => 'パート・アルバイト',
+                            		        'TEMPORARY' => '派遣社員',
+                            		        'COMMISSION' => '嘱託',
+                            		        'OTHER' => 'その他'
                             		    ], old('job_status'), ['class'=>'form-control form-lg']) !!}
                                     </div>
                                 </div>

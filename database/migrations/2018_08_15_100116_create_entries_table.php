@@ -33,8 +33,8 @@ class CreateEntriesTable extends Migration
             $table->timestamps();
             
             //外部キー制約
-            $table->foreign('job_id')->references('id')->on('jobs');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -12,9 +12,10 @@
 
 <div class="container mb50">
     <div class="row">
-        <div class="col-md-12">
-            <h1>エントリー内容確認</h1>
-            <hr>
+        <div class="col-xs-12">
+            <div class="job_name">
+                <h1>エントリー内容確認</h1>
+            </div>
             <p class="mb30">入力内容をご確認いただき、誤りがないことをご確認のうえ、送信ボタンをクリックしてください。</p>
             {!! Form::open(['route' => ['entry.post', $user->display_url, $job->id], 'class' => 'form-horizontal']) !!}
                 <table class="table-wide mb20">
@@ -29,7 +30,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table-form mb30">
+                <table class="table-form mb40">
                     <tbody>
                         <tr>
                             <th>氏名</th>
@@ -70,8 +71,14 @@
                         @endif
                     </tbody>
                 </table>
-                {!! Form::submit('送信する', ['name' => 'light_action', 'class' => 'btn btn-primary']) !!}
-                {!! Form::submit('戻る', ['name' => 'light_action', 'class' => 'btn']) !!}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-5 col-md-offset-2 text-center mb15">
+                        {!! Form::submit('送信する', ['name' => 'action', 'class' => 'btn btn-primary btn-block btn-lg']) !!}
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 text-center mb15">
+                        {!! Form::submit('戻る', ['name' => 'action', 'class' => 'btn btn-block btn-lg']) !!}
+                    </div>
+                </div>
             {!! Form::close() !!}
         </div>
     </div>

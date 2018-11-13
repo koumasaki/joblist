@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Job;
 use App\Entry;
+use App\Recruiter;
 
 class HomeController extends Controller
 {
@@ -97,6 +98,9 @@ class HomeController extends Controller
             abort('404');
         } else {
             $job = $user->jobs()->find($id);
+            $recruiter_id = $job->recruiter;
+            $recruiter = $user->recruiters()->where('id', $recruiter_id)->first();
+
             if (is_null($job)) {
                 abort('404');
             }
@@ -110,6 +114,7 @@ class HomeController extends Controller
         return view('home.user_job', [
             'user' => $user,
             'job' => $job,
+            'recruiter' => $recruiter,
         ]);
     }
 
@@ -269,6 +274,15 @@ class HomeController extends Controller
 
         } else {
             $job = $user->jobs()->find($id);
+            $recruiter = $job->recruiter;
+            $recruiter = $user->recruiters()->where('id', $recruiter)->first();
+            
+            if(count($recruiter) > 0) {
+                $send_mail = $recruiter->email;
+            } else {
+                $send_mail = $user->email;
+            }
+
             if (is_null($job)) {
                 abort('404');
             }
@@ -307,20 +321,20 @@ class HomeController extends Controller
         $entry->myself = $request->myself;
         $entry->save();
         
-        // 送信メール
+        // 送信メール(自動返信)
         \Mail::send(new \App\Mail\EntryMail([
             'to' => $request->mail,
             'to_name' => $request->name,
-            'from' => $job->sender_mail,
+            'from' => $send_mail,
             'from_name' => $user->company,
             'subject' => 'ご応募ありがとうございました',
             'gender' => $request->gender,
             'birthday' => $birthday,
         ]));
-     
-        // 受信メール
+
+        // 受信メール(データ受信)
         \Mail::send(new \App\Mail\EntryMail([
-            'to' => $job->sender_mail,
+            'to' => $send_mail,
             'to_name' => $user->company,
             'from' => $request->mail,
             'from_name' => $request->name,

@@ -2,17 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*
-|--------------------------------------------------------------------------
 | 1) User 認証不要
 |--------------------------------------------------------------------------
 */
@@ -42,6 +31,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
     
     //募集要項登録
     Route::get('/jobs', 'JobsController@index')->name('job.index');
+    Route::get('/jobs/result', 'JobsController@search_result')->name('job_search.result');
     Route::get('/jobs/create', 'JobsController@create')->name('job.create');   // https://~~~~.com/user/jobs/create
     Route::post('/jobs/create', 'JobsController@store')->name('job.post');
     Route::post('/jobs/{id}', 'JobsController@getCopy')->name('job.getCopy');
@@ -51,9 +41,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
 
     //エントリー
     Route::get('/entries', 'EntriesController@index')->name('entry.index');
+    Route::get('/entries/result', 'EntriesController@search_result')->name('entry_search.result');
     Route::get('/entries/csv', 'EntriesController@downloadCSV')->name('entry.csv');
     Route::get('/entries/{id}', 'EntriesController@show')->name('entry.show');
+    Route::post('/entries/{id}/read', 'SendMailsController@read_template')->name('mail_template.read');
     Route::put('/entries/{id}', 'EntriesController@update')->name('entry.update');
+    Route::put('/entries/{id}/read', 'EntriesController@update')->name('entry.update');
     Route::delete('/entries/{id}', 'EntriesController@destroy')->name('entry.delete');
     Route::get('/entries/job/{id}', 'EntriesController@refine')->name('refine.index');
 
@@ -66,10 +59,19 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user']], function () {
     //メールテンプレート登録
     Route::get('/mailtemplates', 'MailtemplateController@index')->name('mailtemplate.index');
     Route::get('/mailtemplates/create', 'MailtemplateController@create')->name('mailtemplate.create');
+    Route::post('/mailtemplates/create/read', 'MailtemplateController@read')->name('mailtemplate.read');
     Route::post('/mailtemplates/create', 'MailtemplateController@store')->name('mailtemplate.post');
     Route::delete('/mailtemplates/{id}', 'MailtemplateController@destroy')->name('mailtemplate.delete');
     Route::get('/mailtemplates/{id}/edit', 'MailtemplateController@edit')->name('mailtemplate.edit');
     Route::put('/mailtemplates/{id}', 'MailtemplateController@update')->name('mailtemplate.update');
+
+    //担当者登録
+    Route::get('/recruiter', 'RecruiterController@index')->name('recruiter.index');
+    Route::get('/recruiter/create', 'RecruiterController@create')->name('recruiter.create');
+    Route::post('/recruiter/create', 'RecruiterController@store')->name('recruiter.post');
+    Route::delete('/recruiter/{id}', 'RecruiterController@destroy')->name('recruiter.delete');
+    Route::get('/recruiter/{id}/edit', 'RecruiterController@edit')->name('recruiter.edit');
+    Route::put('/recruiter/{id}', 'RecruiterController@update')->name('recruiter.update');
 });
 
 /*
@@ -94,8 +96,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     // ユーザ登録
     Route::get('/signup', 'Admin\UsersController@user_create')->name('signup.get');
     Route::post('/signup', 'Admin\UsersController@user_store')->name('signup.post');
-});
 
+    //オリジナルメールテンプレート登録
+    Route::get('/mails', 'MailoriginsController@index')->name('mailorigin.index');
+    Route::get('/mails/create', 'MailoriginsController@create')->name('mailorigin.create');
+    Route::post('/mails/create', 'MailoriginsController@store')->name('mailorigin.post');
+    Route::delete('/mails/{id}', 'MailoriginsController@destroy')->name('mailorigin.delete');
+    Route::get('/mails/{id}/edit', 'MailoriginsController@edit')->name('mailorigin.edit');
+    Route::put('/mails/{id}', 'MailoriginsController@update')->name('mailorigin.update');
+});
+/*
+|--------------------------------------------------------------------------
+| 5) ユーザー側画面
+|--------------------------------------------------------------------------
+*/
 //個社TOP
 Route::get('/{display_url}', 'HomeController@company')->name('company.show');
 Route::get('/{display_url}/result', 'HomeController@search_result')->name('search.result');

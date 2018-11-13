@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Starter</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://www.feedjob.net/public/css/bootstrap.css">
+    <link rel="stylesheet" href="https://www.feedjob.net/public/css/base.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+
+
+</head>
+
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <div class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>F</b>J</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Feed</b>JobAdmin</span>
+    </div>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account Menu -->
+          <li>
+            <a href="#">
+              <span class="hidden-xs">会社名</span>
+            </a>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li><a href=""><i class="fa fa-fw fa-sign-out"></i> ログアウト</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel pt10">
+        <div class="pull-left image">
+          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>Alexander Pierce</p>
+        </div>
+      </div>
+
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a href=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-fw fa-list-ul"></i> <span>求人案件管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件一覧</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件新規作成</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-fw fa-users"></i> <span>エントリー管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件一覧</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件新規作成</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+            <a href="#"><i class="fa fa-fw fa-building"></i> <span>ユーザー登録管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件一覧</a></li>
+            <li><a href="#"><i class="fa fa-angle-double-right"></i>求人案件新規作成</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-fw fa-sign-out"></i> <span>ログアウト</span></a>
+        </li>
+
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header mb10" style="padding-top: 20px;">
+      <h1>
+        求人案件管理
+        <small>募集要項一覧</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Dashboard</a></li>
+        <li class="active">募集要項一覧</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row mb10">
+            <div class="col-md-4 pr0">
+                <div class="form-group">
+                    <input type="email" class="form-control form-lg" id="exampleInputEmail1" placeholder="募集職種">
+                </div>
+            </div>
+            <div class="col-md-4 pr0">
+                <div class="form-group">
+                    <input type="email" class="form-control form-lg" id="inputEmail3" placeholder="勤務地">
+                </div>
+            </div>
+            <div class="col-md-2 pr0">
+                <div class="form-group">
+                  <select class="form-control form-lg">
+                    <option>- 雇用形態 -</option>
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 3</option>
+                    <option>option 4</option>
+                    <option>option 5</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="" class="btn btn-primary btn-block">検索</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="box">
+                <div class="box-header with-border">
+                  <h2 class="box-title">公開中の募集要項</h2>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th>募集職種</th>
+                          <th>公開設定</th>
+                          <th>勤務地</th>
+                          <th>雇用形態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td>プログラマ</td>
+                          <td>公開</td>
+                          <td>大阪市北区堂島浜 【アクセス】 ...</td>
+                          <td>正社員</td>
+                        </tr>
+                        <tr>
+                          <td>
+                              <div class="hid pb20">
+                              <div class="pull-left mr5"><a href="https://www.feedjob.net/public/user/jobs/6/edit" class="btn btn-primary btn-xs">編集</a></div>
+                              <div class="pull-left mr5">
+                                <form method="POST" action="https://www.feedjob.net/public/user/jobs/6" accept-charset="UTF-8"><input name="_token" type="hidden" value="201P87MnhXBvaML3NbGsvjgMjSoeV2DgXECsTg2D">
+                                    <input class="btn btn-success btn-xs" type="submit" value="複製">
+                                </form>
+                              </div>
+                              <div class="pull-left">
+                                <form method="POST" action="https://www.feedjob.net/public/user/jobs/6" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="201P87MnhXBvaML3NbGsvjgMjSoeV2DgXECsTg2D">
+                                    <input class="btn btn-danger btn-xs" type="submit" value="削除">
+                                </form>
+                              </div>
+                              </div>
+                          </td>
+                          <td colspan="4" class="fs13">
+                              <p>備考：</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>プログラマ</td>
+                          <td>公開</td>
+                          <td>大阪市北区堂島浜 【アクセス】 ...</td>
+                          <td>正社員</td>
+                        </tr>
+                        <tr>
+                          <td>
+                              <div class="hid pb20">
+                              <div class="pull-left mr5"><a href="https://www.feedjob.net/public/user/jobs/6/edit" class="btn btn-primary btn-xs">編集</a></div>
+                              <div class="pull-left mr5">
+                                <form method="POST" action="https://www.feedjob.net/public/user/jobs/6" accept-charset="UTF-8"><input name="_token" type="hidden" value="201P87MnhXBvaML3NbGsvjgMjSoeV2DgXECsTg2D">
+                                    <input class="btn btn-success btn-xs" type="submit" value="複製">
+                                </form>
+                              </div>
+                              <div class="pull-left">
+                                <form method="POST" action="https://www.feedjob.net/public/user/jobs/6" accept-charset="UTF-8"><input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="201P87MnhXBvaML3NbGsvjgMjSoeV2DgXECsTg2D">
+                                    <input class="btn btn-danger btn-xs" type="submit" value="削除">
+                                </form>
+                              </div>
+                              </div>
+                          </td>
+                          <td colspan="4" class="fs13">
+                              <p>備考：</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <a href="" class="btn btn-danger">募集要項新規作成</a>
+                </div>
+              </div>
+              <!-- /.box -->
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer fs11">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+      powered by feedjob
+    </div>
+    <!-- Default to the left -->
+    Copyright &copy; Company. All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+</body>
+</html>

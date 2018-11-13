@@ -1,84 +1,46 @@
 @extends('layouts.users_app')
 
-@section('title', ' | 募集要項一覧')
-
+@section('title', ' | 求人案件一覧')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <h1>募集要項一覧</h1>
-            <hr>
-            @if($count_jobs > 0)
-            <table class="table mb50 table-view">
-                <thead>
-                    <tr>
-                        <th>募集職種名</th>
-                        <th>雇用形態</th>
-                        <th>勤務地</th>
-                        <th>公開設定</th>
-                        <th>操作</th>
-                        <th>件数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($jobs as $job)
-                    <tr class="gray">
-                        <td rowspan="2">{{ $job->job_name }}</td>
-                        <td><?php 
-                            switch($job->job_status) {
-                                case 'regular':
-                                    echo '正社員';
-                                    break;
-                                case 'contractor':
-                                    echo '契約社員';
-                                    break;
-                                case 'parttime':
-                                    echo 'パート';
-                                    break;
-                                case 'arbite':
-                                    echo 'アルバイト';
-                                    break;
-                                case 'temp':
-                                    echo '派遣社員';
-                                    break;
-                                case 'commission':
-                                    echo '嘱託';
-                                    break;
-                                case 'others':
-                                    echo 'その他';
-                                    break;
-                            }
-                        ?></td>
-                        <td><?php 
-                                    if (mb_strlen($job->place) < 20) {
-                                        $jobplace = $job->place;
-                                        echo $job->place;
-                                    } else {
-                                        $jobplace = mb_substr( $job->place, 0, 20);
-                                        echo $jobplace. '...';
-                                    }
-                                     ?></td>
-                        <td rowspan="2">@if($job->release === 'release')<?php echo '公開'; ?>@else<?php echo '未公開'; ?>@endif</td>
-                        <td rowspan="2">
-                            {!! link_to_route('job.edit', '編集', ['id' => $job->id], ['class'=>'btn btn-primary btn-xs']) !!}
-                            {!! Form::open(['route' => ['job.getCopy', $job->id], 'method' => 'post']) !!}
-                                {!! Form::submit('複製', ['class' => 'btn btn-success btn-xs']) !!}
-                            {!! Form::close() !!}
-                            {!! Form::open(['route' => ['job.delete', $job->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
-                            {!! Form::close() !!}
-                        </td>
-                        <td rowspan="2">{{ $job->entries()->count() }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">備考：{{ $job->memo }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @else
-            <p class="mb40">募集要項は登録されていません。</p>
-            @endif
-        </div>
-    </div>
+    <section class="content-header" style="padding-top: 20px;">
+        <h1>
+            求人案件一覧
+            <small>求人案件管理</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/user"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li class="active">求人案件一覧</li>
+        </ol>
+    </section>
+
+    <section class="content container-fluid">
+@include('commons.user_search_job')
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                    <h2 class="box-title">求人案件一覧</h2>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @if($count_jobs > 0)
+                        <p>登録件数：{{ $jobs -> total() }}件（{{ $jobs -> currentPage() }}/{{ $jobs -> lastPage() }}ページ）</p>
+@include('commons.user_all_jobs')
+                        @else
+                        <p>求人案件は登録されていません。</p>
+                        @endif
+                        {!! $jobs->render() !!}
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <a href="{{ route('job.create') }}" class="btn btn-success">求人案件新規作成</a>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div> 
+    </section>
+    <!-- /.content -->
 @endsection

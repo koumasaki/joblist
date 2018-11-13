@@ -12,9 +12,10 @@
 
 <div class="container mb50">
     <div class="row">
-        <div class="col-md-12">
-            <h1>エントリーフォーム</h1>
-            <hr>
+        <div class="col-xs-12">
+            <div class="job_name">
+                <h1>エントリーフォーム</h1>
+            </div>
             @if (count($errors) > 0)
             <div class="alert alert-warning">入力内容に間違いがございます。<br>以下のメッセージをご確認のうえ、必要項目へのご入力をお願いします。</div>
             @endif
@@ -31,17 +32,19 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table-form mb30">
+
+                <p class="mb5 fs14 text-right"><span class="red">(※)</span>は必須入力です</p>
+                <table class="table-form mb40">
                     <tbody>
                         <tr class="form-group @if(!empty($errors->first('name'))) has-error @endif">
-                            <th>{!! Form::label('name', '氏名', ['class'=>'control-label']) !!}</th>
+                            <th><label for="name" class="control-label">氏名<span class="fs13 red"> (※)</span></label></th>
                             <td>
                                 {!! Form::text('name', old('name'), ['class'=>'form-control form-sm']) !!}
                                 <span class="help-block-ent">{{$errors->first('name')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('gender'))) has-error @endif">
-                            <th>{!! Form::label('gender', '性別', ['class'=>'control-label']) !!}</th>
+                            <th><label for="gender" class="control-label">性別<span class="fs13 red"> (※)</span></label></th>
                             <td>
                                 <div class="form-inline">
                                     <div class="radio"><label>{!! Form::radio('gender', '男性') !!} 男性　</label></div>
@@ -51,7 +54,7 @@
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('year')) or !empty($errors->first('month')) or !empty($errors->first('day'))) has-error @endif">
-                            <th>{!! Form::label('year', '生年月日', ['class'=>'control-label']) !!}</th>
+                            <th><label for="year" class="control-label">生年月日<span class="fs13 red"> (※)</span></label></th>
                             <td>
                     		    <div class="form-inline">
                                     <?php
@@ -89,28 +92,28 @@
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('mail'))) has-error @endif">
-                            <th>{!! Form::label('mail', 'メールアドレス', ['class'=>'control-label']) !!}</th>
+                            <th><label for="mail" class="control-label">メールアドレス<span class="fs13 red"> (※)</span></label></th>
                             <td>
                                 {!! Form::text('mail', old('mail'), ['class'=>'form-control form-md']) !!}
                                 <span class="help-block-ent">{{$errors->first('mail')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('tel'))) has-error @endif">
-                            <th>{!! Form::label('tel', '電話番号', ['class'=>'control-label']) !!}</th>
+                            <th><label for="tel" class="control-label">電話番号<span class="fs13 red"> (※)</span></label></th>
                             <td>
                                 {!! Form::text('tel', old('tel'), ['class'=>'form-control form-sm', 'placeholder'=>'※ハイフンなし']) !!}
                                 <span class="help-block-ent">{{$errors->first('tel')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('zip'))) has-error @endif">
-                            <th>{!! Form::label('zip', '郵便番号（7桁）', ['class'=>'control-label']) !!}</th>
+                            <th><label for="zip" class="control-label">郵便番号（7桁）<span class="fs13 red">(※)</span></label></th>
                             <td>
                                 {!! Form::text('zip', old('zip'), ['class'=>'form-control form-xs', 'placeholder'=>'※ハイフンなし', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address','address');"]) !!}
                                 <span class="help-block-ent">{{$errors->first('zip')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('address'))) has-error @endif">
-                            <th>{!! Form::label('address', '住所', ['class'=>'control-label']) !!}</th>
+                            <th><label for="address" class="control-label">住所<span class="fs13 red"> (※)</span></label></th>
                             <td>
                                 {!! Form::text('address', old('address'), ['class'=>'form-control form-lg']) !!}
                                 <span class="help-block-ent">{{$errors->first('address')}}</span>
@@ -124,7 +127,14 @@
                         </tr>
                     </tbody>
                 </table>
-                {!! Form::submit('確認する', ['class'=>'btn btn-primary']) !!}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-5 col-md-offset-2 text-center mb15">
+                        {!! Form::submit('確認する', ['class'=>'btn btn-primary btn-block btn-lg']) !!}
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 text-center mb15">
+                        <input type="reset" value="リセット" class="btn btn-block btn-lg">
+                    </div>
+                </div>
             {!! Form::close() !!}
         </div>
     </div>

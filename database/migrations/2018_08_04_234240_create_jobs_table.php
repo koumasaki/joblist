@@ -21,10 +21,11 @@ class CreateJobsTable extends Migration
             $table->string('job_copy');
             $table->text('detail');
             $table->text('qualification');
+            $table->string('simple_salary');
             $table->text('salary');
             $table->text('allowance')->nullable();
             $table->text('place');
-            $table->text('time')->nullable();
+            $table->text('time');
             $table->text('holiday')->nullable();
             $table->text('bonus')->nullable();
             $table->text('benefit')->nullable();
@@ -32,19 +33,25 @@ class CreateJobsTable extends Migration
             $table->text('add_body')->nullable();
             $table->string('job_image')->nullable();
             $table->text('entry_method')->nullable();
+            $table->string('simple_form')->nullable();
             $table->string('job_category')->nullable();
             $table->string('zip')->nullable();
             $table->string('pref')->nullable();
             $table->string('state')->nullable();
+            $table->string('address')->nullable();
+            $table->string('station')->nullable();
+            $table->string('salary_type')->nullable();
+            $table->integer('salary_low')->nullable();
+            $table->integer('salary_high')->nullable();
             $table->text('education')->nullable();
+            $table->string('original_category')->nullable();
             $table->string('release');
-            $table->string('sender_mail');
+            $table->string('recruiter')->nullable();
             $table->string('memo')->nullable();
-            $table->string('simple_form')->nullable();
             $table->timestamps();
             
             //外部キー制約
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

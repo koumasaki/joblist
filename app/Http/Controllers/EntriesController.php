@@ -31,6 +31,39 @@ class EntriesController extends Controller
         }
     }
 
+    //エントリー絞り込み検索
+    public function search_result(Request $request)
+    {
+        $data = [];
+        if (\Auth::check()) {
+            //ログインユーザー
+            $user = \Auth::user();
+
+            $name = $request->name;
+            $status = $request->status;
+            
+            $jobs = $user->jobs();
+            $entries = $user->entries()->where('name', 'LIKE', '%'.$name.'%');
+
+            if (!is_null($status)) {
+                $entries = $entries->where('status', $status);
+            }
+            $entries = $entries->orderBy('created_at', 'desc')->paginate(2);
+
+            $data = [
+                'user' => $user,
+                'jobs' => $jobs,
+                'entries' => $entries,
+                'name' => $name,
+                'status' => $status,
+            ];
+            $data += $this->counts($user);
+            return view('users.entry_search', $data);
+        }else {
+            abort('404');
+        }
+    }
+    
     //募集要項別のエントリー一覧
     public function refine($id)
     {
@@ -72,10 +105,15 @@ class EntriesController extends Controller
     
             } else {
                 $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
+                $mailtemplates = $user->mailtemplates()->get();
+                $sendmails = $user->sendmails()->where('entry_id', $id)->orderBy('created_at', 'desc')->paginate(20);
+
                 return view('users.entry_detail', [
                     'user' => $user,
                     'entry' => $entry,
                     'zip' => $zip,
+                    'mailtemplates' => $mailtemplates,
+                    'sendmails' => $sendmails,
                 ]);                
             }
         };

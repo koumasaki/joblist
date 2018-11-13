@@ -16,12 +16,14 @@ class Controller extends BaseController
         $count_entries = $user->entries()->count();
         $count_sendmails = $user->sendmails()->count();
         $count_mailtemplates = $user->mailtemplates()->count();
+        $count_recruiters = $user->recruiters()->count();
 
         return [
             'count_jobs' => $count_jobs,
             'count_entries' => $count_entries,
             'count_sendmails' => $count_sendmails,
             'count_mailtemplates' => $count_mailtemplates,
+            'count_recruiters' => $count_recruiters,
         ];
     }
 }

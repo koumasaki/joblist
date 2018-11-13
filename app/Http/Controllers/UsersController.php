@@ -58,9 +58,7 @@ class UsersController extends Controller
         $user = User::find($id);
         if (is_null($user) or \Auth::id() !== $user->id) {
             abort('404');
-
         } else {
-
             return view('users.user_edit', [
                 'user' => $user,
             ]);
@@ -71,7 +69,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'email' => 'required|string|email|unique:users',
+            'email' => 'required|string|email',
             'name' => 'required|string',
             'zip' => 'required|string',
             'address' => 'required|string',

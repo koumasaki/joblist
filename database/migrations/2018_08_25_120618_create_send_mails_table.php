@@ -21,6 +21,7 @@ class CreateSendMailsTable extends Migration
             $table->string('to_mail');
             $table->string('title');
             $table->text('body');
+            $table->string('sender')->nullable;
             $table->timestamps();
 
             //外部キー制約

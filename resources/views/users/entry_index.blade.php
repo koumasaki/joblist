@@ -4,60 +4,46 @@
 
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <h1>エントリー一覧</h1>
-            <hr>
-            @if($count_entries > 0)
-            <div class="table-responsive">
-                <table class="table mb50 table-view">
-                    <thead>
-                        <tr>
-                            <th>氏名</th>
-                            <th>進捗状況</th>
-                            <th>応募日</th>
-                            <th>性別</th>
-                            <th>生年月日</th>
-                            <th>メールアドレス</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($entries as $entry)
-                        <tr class="gray">
-                            <td rowspan="2" class="table-name"><a href="{{ route('entry.show', ['id' => $entry->id]) }}">{{ $entry->name }}</a></td>
-                            <td rowspan="2" >{{ $entry->status }}</td>
-                            <td>{{ $entry->created_at->format('Y年m月d日') }}</td>
-                            <td>{{ $entry->gender }}</td>
-                            <td>{{ $entry->birthday }}</td>
-                            <td><a href="mailto:{{ $entry->mail }}">{{ $entry->mail }}</a></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="fs13">
-                                <strong class="red">応募職種：</strong>{{ $entry->job_name }}　<strong class="red">勤務地：</strong><?php 
-                                    if (mb_strlen($entry->job_place) < 20) {
-                                        $place = $entry->job_place;
-                                        echo $entry->job_place;
-                                    } else {
-                                        $place = mb_substr( $entry->job_place, 0, 20);
-                                        echo $place. '...';
-                                    }
-                                     ?>
-                            </td>
-                            <td>{!! Form::model($entry, ['route' => ['entry.update', $entry->id], 'class' => 'form-horizontal', 'method' => 'put']) !!}
-                                    <div class="form-inline">進捗更新：
-                                    {!! Form::select('status', ['' => '-選択-', '未対応' => '未対応', '書類選考' => '書類選考', '一次面接呼出' => '一次面接呼出', '二次面接呼出' => '二次面接呼出', '最終面接呼出' => '最終面接呼出', '内定' => '内定', '不合格' => '不合格'], old('status'), ['class'=>'form-control']) !!}
-                                    {!! Form::submit('更新', ['class'=>'btn btn-primary']) !!}
-                                    </div>
-                                {!! Form::close() !!}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div><a href="{{ action('EntriesController@downloadCSV') }}">csv出力</a></div>
+    <section class="content-header" style="padding-top: 20px;">
+        <h1>
+            エントリー一覧
+            <small>エントリー管理</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/user"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li class="active">エントリー一覧</li>
+        </ol>
+    </section>
+
+    <section class="content container-fluid">
+@include('commons.user_search_entry')
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                    <h2 class="box-title">エントリー一覧</h2>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @if($count_entries > 0)
+                        <p>登録人数：{{ $entries -> total() }}件（{{ $entries -> currentPage() }}/{{ $entries -> lastPage() }}ページ）</p>
+@include('commons.user_all_entries')
+                        @else
+                        <p>エントリーデータは登録されていません。</p>
+                        @endif
+                        {!! $entries->render() !!}
+                    </div>
+                    <!-- /.box-body -->
+                    @if($count_entries > 0)
+                    <div class="box-footer">
+                        <a href="{{ action('EntriesController@downloadCSV') }}" class="btn btn-primary">csv出力</a>
+                    </div>
+                    @endif
+                </div>
+                <!-- /.box -->
             </div>
-            @else
-            <p class="mb40">エントリーデータは登録されていません。</p>
-            @endif
-        </div>
-    </div>
+        </div> 
+    </section>
+    <!-- /.content -->
 @endsection

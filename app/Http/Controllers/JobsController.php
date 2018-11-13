@@ -26,13 +26,63 @@ class JobsController extends Controller
             abort('404');
         }
     }
+
+    //募集要項絞り込み検索
+    public function search_result(Request $request)
+    {
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+
+            $job_name = $request->job_name;
+            $pref = $request->pref;
+            $status = $request->status;
+            $release = $request->release;
+
+            $jobs = $user->jobs()->where('job_name', 'LIKE', '%'.$job_name.'%');
+            
+            if (!is_null($pref)) {
+                $jobs = $jobs->where('pref', $pref);
+            }
+            if (!is_null($status)) {
+                $jobs = $jobs->where('job_status', $status);
+            }
+            if (!is_null($release)) {
+                $jobs = $jobs->where('release', $release);
+            }
+            
+            $jobs = $jobs->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'jobs' => $jobs,
+                'job_name' => $job_name,
+                'pref' => $pref,
+                'status' => $status,
+                'release' => $release,
+            ];
+            $data += $this->counts($user);
+            return view('users.job_search', $data);
+        }else {
+            abort('404');
+        }
+    }
     //募集要項新規登録
     public function create()
     {
-        $job = new Job;
-        return view('users.job_create', [
-            'job' => $job,
-        ]);
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $job = new Job;
+            $recruiters = $user->recruiters()->get();
+            
+            return view('users.job_create', [
+                'user' => $user,
+                'job' => $job,
+                'recruiters' => $recruiters,
+            ]);
+        }else {
+            abort('404');
+        }
     }
     public function store(Request $request)
     {
@@ -50,8 +100,8 @@ class JobsController extends Controller
             'zip' => 'required',
             'pref' => 'required',
             'state' => 'required',
+            'simple_salary' => 'required',
             'release' => 'required',
-            'sender_mail' => 'required',
             'simple_form' => 'required',
         ]);
 
@@ -72,15 +122,18 @@ class JobsController extends Controller
         $job->add_title = $request->add_title;
         $job->add_body = $request->add_body;
         $job->entry_method = $request->entry_method;
+        $job->simple_form = $request->simple_form;
         $job->job_category = $request->job_category;
         $job->zip = $request->zip;
         $job->pref = $request->pref;
         $job->state = $request->state;
+        $job->simple_salary = $request->simple_salary;
+        $job->station = $request->station;
         $job->education = $request->education;
+        $job->original_category = $request->original_category;
         $job->release = $request->release;
-        $job->sender_mail = $request->sender_mail;
+        $job->recruiter = $request->recruiter;
         $job->memo = $request->memo;
-        $job->simple_form = $request->simple_form;
 
         //仕事画像
         if($request->hasFile('job_image')) {
@@ -101,16 +154,25 @@ class JobsController extends Controller
     //募集要項編集フォーム
     public function edit($id)
     {
-        $job = Job::find($id);
-        if (is_null($job) or \Auth::id() !== $job->user_id) {
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $job = Job::find($id);
+            if (is_null($job) or \Auth::id() !== $job->user_id) {
+                abort('404');
+            } else {
+                $recruiters = $user->recruiters()->get();
+                $rec_id = $job->recruiter;
+                $recruiter = $user->recruiters()->where('id', $rec_id)->first();
+                return view('users.job_edit', [
+                    'user' => $user,
+                    'job' => $job,
+                    'recruiters' => $recruiters,
+                    'recruiter' => $recruiter,
+                ]);
+            };
+        }else {
             abort('404');
-
-        } else {
-
-            return view('users.job_edit', [
-                'job' => $job,
-            ]);
-        };
+        }
     }
 
     //募集要項編集登録
@@ -130,8 +192,8 @@ class JobsController extends Controller
             'zip' => 'required',
             'pref' => 'required',
             'state' => 'required',
+            'simple_salary' => 'required',
             'release' => 'required',
-            'sender_mail' => 'required',
             'simple_form' => 'required',
         ]);
 
@@ -151,15 +213,18 @@ class JobsController extends Controller
         $job->add_title = $request->add_title;
         $job->add_body = $request->add_body;
         $job->entry_method = $request->entry_method;
+        $job->simple_form = $request->simple_form;
         $job->job_category = $request->job_category;
         $job->zip = $request->zip;
         $job->pref = $request->pref;
         $job->state = $request->state;
+        $job->simple_salary = $request->simple_salary;
+        $job->station = $request->station;
         $job->education = $request->education;
+        $job->original_category = $request->original_category;
         $job->release = $request->release;
-        $job->sender_mail = $request->sender_mail;
+        $job->recruiter = $request->recruiter;
         $job->memo = $request->memo;
-        $job->simple_form = $request->simple_form;
 
         //仕事画像
         if($request->hasFile('job_image')) {
@@ -174,7 +239,8 @@ class JobsController extends Controller
         
         $job->save();
 
-        return redirect('/user/jobs');
+        return redirect('/user/jobs')
+            ->with('message', '求人案件を編集しました。');
     }
 
     //募集要項複製
@@ -187,10 +253,10 @@ class JobsController extends Controller
         unset($data->updated_at);
         if($data->save()){
             return redirect('/user/jobs')
-                            ->with('message', '複製しました。');
+                ->with('message', '複製しました。');
         }else{
             return redirect('/user/jobs')
-                            ->with('message', '複製出来ませんでした。');
+                ->with('message', '複製出来ませんでした。');
         }
     }
 

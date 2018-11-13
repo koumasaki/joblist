@@ -7,6 +7,7 @@
 <title>@yield('title')</title>
 <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.css') }}">
 <link rel="stylesheet" href="{{ secure_asset('css/base.css') }}">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 @if(\Route::current() -> getName() == 'job.show')
 <script type="application/ld+json">
 {
