@@ -40,20 +40,24 @@
                             {!! Form::close() !!}
                         </div>
                         {!! Form::open(['route' => 'mailtemplate.post', 'class' => 'form-horizontal']) !!}
-                    	<div class="form-group @if(!empty($errors->first('title'))) has-error @endif">
-                    		{!! Form::label('title', 'タイトル', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-8">
-                    		    {!! Form::text('title', old('title'), ['class'=>'form-control form-md']) !!}
-                                <span class="help-block">{{$errors->first('title')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('body'))) has-error @endif">
-                    		{!! Form::label('body', 'メール本文', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-9">
-                                {!! Form::textarea('body', old('body'), ['class' => 'form-control form-lg', 'rows' => '10']) !!}
-                                <span class="help-block">{{$errors->first('body')}}</span>
-                    		</div>
-                    	</div>
+                        <table class="table-form mb20">
+                            <tbody>
+                                <tr class="form-group @if(!empty($errors->first('title'))) has-error @endif">
+                                    <th><label for="title" class="control-label">タイトル<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::text('title', old('title'), ['class'=>'form-control form-md']) !!}
+                                        <span class="help-block">{{$errors->first('title')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('body'))) has-error @endif">
+                                    <th><label for="body" class="control-label">メール本文<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::textarea('body', old('body'), ['class' => 'form-control form-lg', 'rows' => '10']) !!}
+                                        <span class="help-block">{{$errors->first('body')}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

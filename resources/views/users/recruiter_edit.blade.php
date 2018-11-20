@@ -25,48 +25,54 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         {!! Form::model($recruiter, ['route' => ['recruiter.update', $recruiter->id], 'class' => 'form-horizontal', 'method' => 'put']) !!}
-                    	<div class="form-group @if(!empty($errors->first('name'))) has-error @endif">
-                    		{!! Form::label('name', '担当者名', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-3">
-                                {!! Form::text('name', old('name'), ['class'=>'form-control form-lg']) !!}
-                                <span class="help-block">{{$errors->first('name')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('section'))) has-error @endif">
-                    		{!! Form::label('section', '部署・所属', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-3">
-                                {!! Form::text('section', old('section'), ['class'=>'form-control form-lg']) !!}
-                                <span class="help-block">{{$errors->first('section')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('zip'))) has-error @endif">
-                    		{!! Form::label('zip', '郵便番号', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-2">
-                                {!! Form::text('zip', null, ['class'=>'form-control form-lg', 'placeholder'=>'※ハイフンあり', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address','address');"]) !!}
-                                <span class="help-block">{{$errors->first('zip')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('address'))) has-error @endif">
-                    		{!! Form::label('address', '住所', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-5">
-                                {!! Form::textarea('address', old('address'), ['class' => 'form-control form-lg', 'rows' => '4']) !!}
-                                <span class="help-block">{{$errors->first('address')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('tel'))) has-error @endif">
-                    		{!! Form::label('tel', '電話番号', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-3">
-                                {!! Form::text('tel', old('tel'), ['class'=>'form-control form-lg', 'placeholder'=>'※ハイフンあり']) !!}
-                                <span class="help-block">{{$errors->first('tel')}}</span>
-                    		</div>
-                    	</div>
-                    	<div class="form-group @if(!empty($errors->first('email'))) has-error @endif">
-                    		{!! Form::label('email', 'メールアドレス', ['class'=>'col-sm-3 control-label']) !!}
-                    		<div class="col-sm-5">
-                                {!! Form::text('email', old('email'), ['class'=>'form-control form-lg']) !!}
-                                <span class="help-block">{{$errors->first('email')}}</span>
-                    		</div>
-                    	</div>
+                        <table class="table-form mb30">
+                            <tbody>
+                                <tr class="form-group @if(!empty($errors->first('name'))) has-error @endif">
+                                    <th><label for="name" class="control-label">担当者名<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::text('name', old('name'), ['class'=>'form-control form-md']) !!}
+                                        <span class="help-block">{{$errors->first('name')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('section'))) has-error @endif">
+                                    <th><label for="section" class="control-label">部署・所属</label></th>
+                                    <td>
+                                        {!! Form::text('section', old('section'), ['class'=>'form-control form-sm']) !!}
+                                        <span class="help-block">{{$errors->first('section')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('zip'))) has-error @endif">
+                                    <th><label for="zip" class="control-label">郵便番号<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::text('zip', null, ['class'=>'form-control form-sm', 'placeholder'=>'※000-0000 ハイフンあり', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address','address');"]) !!}
+                                        <span class="help-block">{{$errors->first('zip')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('address'))) has-error @endif">
+                                    <th><label for="address" class="control-label">住所<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::textarea('address', old('address'), ['class' => 'form-control form-lg', 'rows' => '4']) !!}
+                                        <span class="fs13">（例）530-0003 ※ハイフンあり・半角数字</span>
+                                        <span class="help-block">{{$errors->first('address')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('tel'))) has-error @endif">
+                                    <th><label for="tel" class="control-label">電話番号<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::text('tel', old('tel'), ['class'=>'form-control form-md', 'placeholder'=>'※00-0000-0000 ハイフンあり']) !!}
+                                        <span class="fs13">（例）06-0000-0000 ※ハイフンあり・半角数字</span>
+                                        <span class="help-block">{{$errors->first('tel')}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="form-group @if(!empty($errors->first('email'))) has-error @endif">
+                                    <th><label for="email" class="control-label">Eメール<span class="fs13 red"> (※)</span></label></th>
+                                    <td>
+                                        {!! Form::text('email', old('email'), ['class'=>'form-control form-md']) !!}
+                                        <span class="help-block">{{$errors->first('email')}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

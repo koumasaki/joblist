@@ -96,6 +96,20 @@
 .gray_flame {
     border: solid 2px #ccc;
 }
+.rec_title {
+    text-align: center;
+    background: url(../images/common/logo_back.jpg) no-repeat center 38px;
+    font-size: 26px;
+    line-height: 100%;
+    margin-bottom: 30px;
+}
+.rec_title span {
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+    color: #999;
+    padding-top: 25px;
+}
 
 /*--- 職種検索フレーム ---*/
 .search_flame {

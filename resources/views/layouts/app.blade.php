@@ -18,59 +18,115 @@
         "currency": "JPY",
         "value": {
             "@type": "QuantitativeValue",
-            "minValue": 40.00,
-            "maxValue": 50.00,
-            "unitText": "HOUR"
+@if(!is_null($job->salary_high))
+            "minValue": {{ $job->salary_low }},
+            "maxValue": {{ $job->salary_high }},
+@else
+            "Value": {{ $job->salary_low }},
+@endif
+            "unitText": "{{ $job->salary_type }}"
         }
     },
-	"datePosted": "2018-09-17",
-    "description": "{!! nl2br(e($job->detail)) !!}",
-	"employmentType": ["<?php 
-                switch($job->job_status) {
-                    case 'regular':
-                        echo '正社員';
-                        break;
-                    case 'contractor':
-                        echo '契約社員';
-                        break;
-                    case 'parttime':
-                        echo 'パート';
-                        break;
-                    case 'arbite':
-                        echo 'アルバイト';
-                        break;
-                    case 'temp':
-                        echo '派遣社員';
-                        break;
-                    case 'commission':
-                        echo '嘱託';
-                        break;
-                    case 'others':
-                        echo 'その他';
-                        break;
-                }
-                ?>"],
+	"datePosted": "{{ $job->updated_at->format('Y-m-d') }}",
+    "description": "<p>{!! nl2br(e($job->detail)) !!}</p>
+    <p><strong>対象となる方</strong><br>
+    {!! nl2br(e($job->qualification)) !!}</p>
+    <p><strong>給与</strong><br>
+    {{ $job->simple_salary }}<br>
+    {!! nl2br(e($job->salary)) !!}</p>
+    @if(!is_null($job->allowance))<p><strong>諸手当</strong><br>
+    {!! nl2br(e($job->allowance)) !!}</p>
+@endif
+    <p><strong>勤務地</strong><br>
+    {!! nl2br(e($job->place)) !!}</p>
+    <p><strong>勤務時間</strong><br>
+    {!! nl2br(e($job->time)) !!}</p>
+    @if(!is_null($job->holiday))<p><strong>休日・休暇</strong><br>
+    {!! nl2br(e($job->holiday)) !!}</p>
+@endif
+    @if(!is_null($job->bonus))<p><strong>昇給・賞与</strong><br>
+    {!! nl2br(e($job->bonus)) !!}</p>
+@endif
+    @if(!is_null($job->benefit))<p><strong>待遇・福利厚生</strong><br>
+    {!! nl2br(e($job->benefit)) !!}</p>@endif",
+	"employmentType": ["{{ $job->job_status }}"],
 	"hiringOrganization": {
         "@type": "Organization",
-        "name": "会社名",
-        "sameAs": "http://www.magsruswheelcompany.com"
+        "name": "{{ $user->company }}",
+        "sameAs": "{{ $user->site_url }}"
     },
-	"industry": "飲食/フード",
+	"industry": "<?php 
+                switch($job->job_category) {
+                    case 'sales':
+                        echo '営業';
+                        break;
+                    case 'manage':
+                        echo '企画・経営';
+                        break;
+                    case 'office':
+                        echo '事務・管理';
+                        break;
+                    case 'service':
+                        echo '販売';
+                        break;
+                    case 'others':
+                        echo 'その他サービス系';
+                        break;
+                    case 'medical':
+                        echo '医療・福祉';
+                        break;
+                    case 'education':
+                        echo '教育・保育・通訳';
+                        break;
+                    case 'consul':
+                        echo 'コンサルタント・金融・不動産専門職';
+                        break;
+                    case 'creative':
+                        echo 'クリエイティブ';
+                        break;
+                    case 'web':
+                        echo 'WEB・インターネット・ゲーム';
+                        break;
+                    case 'it':
+                        echo 'ITエンジニア';
+                        break;
+                    case 'electric':
+                        echo '電気・電子・機械・半導体';
+                        break;
+                    case 'industory':
+                        echo '建築・土木';
+                        break;
+                    case 'chemical':
+                        echo '化学・食品・医薬';
+                        break;
+                    case 'skill':
+                        echo '設備・技能・配送';
+                        break;
+                    case 'official':
+                        echo '公共サービス';
+                        break;
+                }
+                ?>",
 	"jobLocation": {
 		"@type": "Place",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "555 Clancy St",
-            "addressLocality": "Detroit",
-            "addressRegion": "MI",
-            "postalCode": "48201",
+            @if(!is_null($job->address))"streetAddress": "{{ $job->address }}",
+@endif
+            "addressLocality": "{{ $job->state }}",
+            "addressRegion": "{{ $job->pref }}",
+            "postalCode": "{{ $job->zip }}",
             "addressCountry": "JP"
         }
     },
-	"title": "職種名称",
-	"workHours": "6:00?23:00",
-	"mainEntityOfPage": "https://townwork.net/appInpt/?joid=K4621847",
-	"url": "https://townwork.net/detail/clc_1918037003/joid_K4621847/"
+	"title": "{{ $job->job_name }}",
+	"workHours": "{!! nl2br(e($job->time)) !!}",
+	"mainEntityOfPage": "@if($job->simple_form === 'simple')
+{{ route('light.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}
+@else
+{{ route('entry.get', ['display_url' => $user->display_url, 'id' => $job->id]) }}
+@endif",
+	"url": "{{ route('job.show', ['id' => $job->id, 'display_url' => $user->display_url]) }}"
 }
 </script>
 @endif

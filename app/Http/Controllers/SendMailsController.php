@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Entry;
 use App\Sendmail;
+use App\Recruiter;
 
 class SendMailsController extends Controller
 {
@@ -48,12 +49,15 @@ class SendMailsController extends Controller
 
         } else {
             $mailtemplates = $user->mailtemplates()->get();
+            $recruiters = $user->recruiters()->get();
     
             $sendmail = new Sendmail;
             return view('users.mail_create', [
+                'user' => $user,
                 'sendmail' => $sendmail,
                 'entry' => $entry,
                 'mailtemplates' => $mailtemplates,
+                'recruiters' => $recruiters,
             ]);
         };
     }
@@ -78,11 +82,14 @@ class SendMailsController extends Controller
             
             $mailtemplates = $user->mailtemplates()->get();
             $template = $user->mailtemplates()->find($request->template_id);
+            $recruiters = $user->recruiters()->get();
             
             return view('users.mail_create', [
+                'user' => $user,
                 'entry' => $entry,
                 'mailtemplates' => $mailtemplates,
                 'template' => $template,
+                'recruiters' => $recruiters,
             ]);
         };
     }
@@ -101,13 +108,16 @@ class SendMailsController extends Controller
             $template = $user->mailtemplates()->find($request->template_id);
             $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
             $sendmails = $user->sendmails()->where('entry_id', $id)->orderBy('created_at', 'desc')->paginate(20);
+            $recruiters = $user->recruiters()->get();
             
             return view('users.entry_detail', [
+                'user' => $user,
                 'entry' => $entry,
                 'mailtemplates' => $mailtemplates,
                 'template' => $template,
                 'zip' => $zip,
                 'sendmails' => $sendmails,
+                'recruiters' => $recruiters,
             ]);
         };
     }
@@ -126,26 +136,49 @@ class SendMailsController extends Controller
         $sendmail->to_mail = $request->to_mail;
         $sendmail->title = $request->title;
         $sendmail->body = $request->body;
+        $sendmail->sender = $request->sender;
         $sendmail->save();
+        
+        $sender = $sendmail->sender;
+        $sender = $user->recruiters()->where('id', $sender)->first();
+        
+        if(count($sender) > 0) {
+            $signature_name = $sender->name;
+            $signature_mail = $sender->email;
+            $signature_tel = $sender->tel;
+            $signature_address = $sender->address;
+        } else {
+            $signature_name = $user->name;
+            $signature_mail = $user->email;
+            $signature_tel = $user->tel;
+            $signature_address = $user->address;
+        }
+        
 
-        // 送信メール
+        // 送信メール(自動返信)
         \Mail::send(new \App\Mail\SendMail([
             'to' => $request->to_mail,
             'to_name' => $request->to_name,
-            'from' => $user->email,
+            'from' => 'sender@feedjob.net',
             'from_name' => $user->company,
             'subject' => $request->title,
             'body' => $request->body,
+            'signature_name' => $signature_name,
+            'signature_mail' => $signature_mail,
+            'signature_tel' => $signature_tel,
+            'signature_address' => $signature_address,
         ]));
      
-        // 受信メール
+        // 受信メール(送信通知)
         \Mail::send(new \App\Mail\SendMail([
-            'to' => $user->email,
+            'to' => $signature_mail,
             'to_name' => $user->company,
-            'from' => $request->to_mail,
+            'from' => 'sender@feedjob.net',
             'from_name' => $request->to_name,
             'subject' => '【送信済】' . $request->title,
             'body' => $request->body,
+            'signature_name' => $signature_name,
+            'to_mail' => $request->to_mail,
         ], 'from'));
 
         // 二重送信防止

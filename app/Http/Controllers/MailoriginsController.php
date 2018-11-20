@@ -39,8 +39,8 @@ class MailoriginsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required|string',
+            'body' => 'required|string',
         ]);
         
         $mail = new Mailorigin;
@@ -67,8 +67,8 @@ class MailoriginsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required|string',
+            'body' => 'required|string',
         ]);
         
         $mail = Mailorigin::find($id);

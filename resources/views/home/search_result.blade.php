@@ -11,7 +11,7 @@
 </div>
 
 <div class="container mb40 mt60">
-    <h2>募集要項<span>Recruitment</span></h2>
+    <h2 class="rec_title">募集要項<span>Recruitment</span></h2>
 @include('commons.search_form')
 </div>
 <div class="container mb30" id="recruit">

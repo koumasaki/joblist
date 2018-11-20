@@ -151,10 +151,12 @@
                         <td>{{ $job->simple_salary }}<br>
                         {!! nl2br(e($job->salary)) !!}</td>
                     </tr>
+                    @if(!is_null($job->allowance))
                     <tr>
                         <th>諸手当</th>
                         <td>{!! nl2br(e($job->allowance)) !!}</td>
                     </tr>
+                    @endif
                     <tr>
                         <th>勤務地</th>
                         <td>{!! nl2br(e($job->place)) !!}</td>
@@ -163,18 +165,24 @@
                         <th>勤務時間</th>
                         <td>{!! nl2br(e($job->time)) !!}</td>
                     </tr>
+                    @if(!is_null($job->holiday))
                     <tr>
                         <th>休日・休暇</th>
                         <td>{!! nl2br(e($job->holiday)) !!}</td>
                     </tr>
+                    @endif
+                    @if(!is_null($job->bonus))
                     <tr>
                         <th>昇給・賞与</th>
                         <td>{!! nl2br(e($job->bonus)) !!}</td>
                     </tr>
+                    @endif
+                    @if(!is_null($job->benefit))
                     <tr>
                         <th>待遇・福利厚生</th>
                         <td>{!! nl2br(e($job->benefit)) !!}</td>
                     </tr>
+                    @endif
                     @if(!is_null($job->add_title))
                     <tr>
                         <th>{{ $job->add_title }}</th>

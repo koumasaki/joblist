@@ -39,10 +39,12 @@ class RecruiterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'zip' => 'required',
+            'name' => 'required|string',
+            'section' => 'nullable|string',
+            'zip' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required',
-            'tel' => 'required',
+            'tel' => 'required|regex:/^[0-9-]+$/',
+            'email' => 'required|email',
         ]);
         
         $recruiter = new Recruiter;
@@ -74,10 +76,12 @@ class RecruiterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'zip' => 'required',
+            'name' => 'required|string',
+            'section' => 'nullable|string',
+            'zip' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required',
-            'tel' => 'required',
+            'tel' => 'required|regex:/^[0-9-]+$/',
+            'email' => 'required|email',
         ]);
         
         $recruiter = Recruiter::find($id);

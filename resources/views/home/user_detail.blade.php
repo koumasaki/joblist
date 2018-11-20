@@ -45,22 +45,30 @@
             <div class="col-md-6 mb40">
                 <table class="table-narrow">
                     <tbody>
+                        @if(!is_null($user->establishment))
                         <tr>
                             <th>設立</th>
                             <td>{{ $user->establishment }}</td>
                         </tr>
+                        @endif
+                        @if(!is_null($user->capitalstock))
                         <tr>
                             <th>資本金</th>
                             <td>{{ $user->capitalstock }}</td>
                         </tr>
+                        @endif
+                        @if(!is_null($user->number))
                         <tr>
                             <th>従業員数</th>
                             <td>{{ $user->number }}</td>
                         </tr>
+                        @endif
+                        @if(!is_null($user->president))
                         <tr>
                             <th>代表者名</th>
                             <td>{{ $user->president }}</td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -71,7 +79,7 @@
 <div class="container" id="recruit">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>募集要項<span>Recruitment</span></h2>
+            <h2 class="rec_title">募集要項<span>Recruitment</span></h2>
             @if( count($jobs) > 0)
             @foreach ($jobs as $job)
             <?php $user = $job->user; ?>

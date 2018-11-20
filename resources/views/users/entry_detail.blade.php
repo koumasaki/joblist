@@ -153,6 +153,23 @@
                                         <span class="help-block-ent">{{$errors->first('body')}}</span>
                                     </td>
                                 </tr>
+                                <tr class="form-group @if(!empty($errors->first('sender'))) has-error @endif">
+                                    <th>{!! Form::label('sender', '署名', ['class'=>'control-label']) !!}</th>
+                                    <td>
+                                        @if( count($recruiters) > 0 )
+                                        <select class="form-control form-md" id="sender" name="sender">
+                                            <option value=''>{{ $user->name }}／{{ $user->email }}</option>
+                                            @foreach($recruiters as $recruiter)
+                                                <option value={{ $recruiter->id }}>{{ $recruiter->name }}／{{ $recruiter->email }}</option>
+                                            @endforeach
+                                        </select>
+                                        @else
+                                        {{ $user->name }}／{{ $user->email }}<br>
+                                        <span class="fs13">※担当者を変更する場合は、先に担当者情報を追加してください。</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
                             </tbody>
                         </table>
                     </div>

@@ -107,6 +107,7 @@ class EntriesController extends Controller
                 $zip = substr($entry->zip,0,3) . "-" . substr($entry->zip,3);
                 $mailtemplates = $user->mailtemplates()->get();
                 $sendmails = $user->sendmails()->where('entry_id', $id)->orderBy('created_at', 'desc')->paginate(20);
+                $recruiters = $user->recruiters()->get();
 
                 return view('users.entry_detail', [
                     'user' => $user,
@@ -114,6 +115,7 @@ class EntriesController extends Controller
                     'zip' => $zip,
                     'mailtemplates' => $mailtemplates,
                     'sendmails' => $sendmails,
+                    'recruiters' => $recruiters,
                 ]);                
             }
         };

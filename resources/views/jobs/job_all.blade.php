@@ -3,25 +3,22 @@
                     <p class="job_copy">{{ $job->job_copy }}</p>
                     <h3>{{ $job->job_name }} <span class="job_status"><?php 
                     switch($job->job_status) {
-                        case 'regular':
+                        case 'FULL_TIME':
                             echo '正社員';
                             break;
-                        case 'contractor':
+                        case 'CONTRACTOR':
                             echo '契約社員';
                             break;
-                        case 'parttime':
-                            echo 'パート';
+                        case 'PART_TIME':
+                            echo 'パート・アルバイト';
                             break;
-                        case 'arbite':
-                            echo 'アルバイト';
-                            break;
-                        case 'temp':
+                        case 'TEMPORARY':
                             echo '派遣社員';
                             break;
-                        case 'commission':
+                        case 'COMMISSION':
                             echo '嘱託';
                             break;
-                        case 'others':
+                        case 'OTHER':
                             echo 'その他';
                             break;
                     }
@@ -79,11 +76,11 @@
                         @else
                         <div class="col-sm-12">
                             <p class="mb15"><?php 
-                            if (mb_strlen($job->detail) < 35) {
+                            if (mb_strlen($job->detail) < 40) {
                                 $joboutline = $job->detail;
                                 echo $joboutline;
                             } else {
-                                $joboutline = mb_substr( $job->detail, 0, 35);
+                                $joboutline = mb_substr( $job->detail, 0, 40);
                                 echo $joboutline. '...';
                             }
                              ?></p>
@@ -91,24 +88,16 @@
                                 <tbody>
                                     <tr>
                                         <th>給与</th>
-                                        <td><?php 
-                            if (mb_strlen($job->salary) < 20) {
-                                $jobsalary = $job->salary;
-                                echo $jobsalary;
-                            } else {
-                                $jobsalary = mb_substr( $job->salary, 0, 20);
-                                echo $jobsalary. '...';
-                            }
-                             ?></td>
+                                        <td>{{ $job->simple_salary }}</td>
                                     </tr>
                                     <tr>
                                         <th>勤務地</th>
                                         <td><?php 
-                            if (mb_strlen($job->place) < 15) {
+                            if (mb_strlen($job->place) < 30) {
                                 $jobplace = $job->place;
                                 echo $jobplace;
                             } else {
-                                $jobplace = mb_substr( $job->place, 0, 15);
+                                $jobplace = mb_substr( $job->place, 0, 30);
                                 echo $jobplace. '...';
                             }
                              ?></td>

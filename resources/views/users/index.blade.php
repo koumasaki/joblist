@@ -40,25 +40,22 @@
                                     <td>{{ $job->job_name }}</td>
                                     <td><?php 
                                         switch($job->job_status) {
-                                            case 'regular':
+                                            case 'FULL_TIME':
                                                 echo '正社員';
                                                 break;
-                                            case 'contractor':
+                                            case 'CONTRACTOR':
                                                 echo '契約社員';
                                                 break;
-                                            case 'parttime':
-                                                echo 'パート';
+                                            case 'PART_TIME':
+                                                echo 'パート・アルバイト';
                                                 break;
-                                            case 'arbite':
-                                                echo 'アルバイト';
-                                                break;
-                                            case 'temp':
+                                            case 'TEMPORARY':
                                                 echo '派遣社員';
                                                 break;
-                                            case 'commission':
+                                            case 'COMMISSION':
                                                 echo '嘱託';
                                                 break;
-                                            case 'others':
+                                            case 'OTHER':
                                                 echo 'その他';
                                                 break;
                                         }

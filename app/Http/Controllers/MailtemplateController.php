@@ -75,8 +75,8 @@ class MailtemplateController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required|string',
+            'body' => 'required|string',
         ]);
         
         $mailtemplate = new Mailtemplate;
@@ -117,8 +117,8 @@ class MailtemplateController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required|string',
+            'body' => 'required|string',
         ]);
         
         $mailtemplate = Mailtemplate::find($id);

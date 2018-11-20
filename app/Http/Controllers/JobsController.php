@@ -87,22 +87,35 @@ class JobsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'job_name' => 'required',
+            'job_name' => 'required|string',
             'job_status' => 'required',
-            'job_copy' => 'required',
-            'detail' => 'required',
-            'qualification' => 'required',
-            'salary' => 'required',
-            'place' => 'required',
-            'time' => 'required',
-            'entry_method' => 'required',
-            'job_category' => 'required',
-            'zip' => 'required',
-            'pref' => 'required',
-            'state' => 'required',
-            'simple_salary' => 'required',
-            'release' => 'required',
+            'job_copy' => 'required|string',
+            'detail' => 'required|string',
+            'qualification' => 'required|string',
+            'simple_salary' => 'required|string',
+            'place' => 'required|string',
+            'time' => 'required|string',
+            'holiday' => 'nullable|string',
+            'bonus' => 'nullable|string',
+            'benefit' => 'nullable|string',
+            'add_title' => 'nullable|string',
+            'add_body' => 'nullable|string',
+            'job_image' => 'file|image|dimensions:min_width=400',
+            'entry_method' => 'required|string',
             'simple_form' => 'required',
+            'job_category' => 'required',
+            'zip' => 'required|numeric',
+            'pref' => 'required|string',
+            'state' => 'required|string',
+            'address' => 'nullable|string',
+            'station' => 'nullable|string',
+            'salary_type' => 'required',
+            'salary_low' => 'required|numeric',
+            'salary_high' => 'nullable|numeric',
+            'education' => 'nullable|string',
+            'original_category' => 'nullable|string',
+            'release' => 'required',
+            'memo' => 'nullable|string',
         ]);
 
         $job = new Job;
@@ -112,6 +125,7 @@ class JobsController extends Controller
         $job->job_copy = $request->job_copy;
         $job->detail = $request->detail;
         $job->qualification = $request->qualification;
+        $job->simple_salary = $request->simple_salary;
         $job->salary = $request->salary;
         $job->allowance = $request->allowance;
         $job->place = $request->place;
@@ -127,8 +141,11 @@ class JobsController extends Controller
         $job->zip = $request->zip;
         $job->pref = $request->pref;
         $job->state = $request->state;
-        $job->simple_salary = $request->simple_salary;
+        $job->address = $request->address;
         $job->station = $request->station;
+        $job->salary_type = $request->salary_type;
+        $job->salary_low = $request->salary_low;
+        $job->salary_high = $request->salary_high;
         $job->education = $request->education;
         $job->original_category = $request->original_category;
         $job->release = $request->release;
@@ -179,22 +196,35 @@ class JobsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'job_name' => 'required',
+            'job_name' => 'required|string',
             'job_status' => 'required',
-            'job_copy' => 'required',
-            'detail' => 'required',
-            'qualification' => 'required',
-            'salary' => 'required',
-            'place' => 'required',
-            'time' => 'required',
-            'entry_method' => 'required',
-            'job_category' => 'required',
-            'zip' => 'required',
-            'pref' => 'required',
-            'state' => 'required',
-            'simple_salary' => 'required',
-            'release' => 'required',
+            'job_copy' => 'required|string',
+            'detail' => 'required|string',
+            'qualification' => 'required|string',
+            'simple_salary' => 'required|string',
+            'place' => 'required|string',
+            'time' => 'required|string',
+            'holiday' => 'nullable|string',
+            'bonus' => 'nullable|string',
+            'benefit' => 'nullable|string',
+            'add_title' => 'nullable|string',
+            'add_body' => 'nullable|string',
+            'job_image' => 'file|image|dimensions:min_width=400',
+            'entry_method' => 'required|string',
             'simple_form' => 'required',
+            'job_category' => 'required',
+            'zip' => 'required|numeric',
+            'pref' => 'required|string',
+            'state' => 'required|string',
+            'address' => 'nullable|string',
+            'station' => 'nullable|string',
+            'salary_type' => 'required',
+            'salary_low' => 'required|numeric',
+            'salary_high' => 'nullable|numeric',
+            'education' => 'nullable|string',
+            'original_category' => 'nullable|string',
+            'release' => 'required',
+            'memo' => 'nullable|string',
         ]);
 
         $job = Job::find($id);
@@ -203,6 +233,7 @@ class JobsController extends Controller
         $job->job_copy = $request->job_copy;
         $job->detail = $request->detail;
         $job->qualification = $request->qualification;
+        $job->simple_salary = $request->simple_salary;
         $job->salary = $request->salary;
         $job->allowance = $request->allowance;
         $job->place = $request->place;
@@ -218,8 +249,11 @@ class JobsController extends Controller
         $job->zip = $request->zip;
         $job->pref = $request->pref;
         $job->state = $request->state;
-        $job->simple_salary = $request->simple_salary;
+        $job->address = $request->address;
         $job->station = $request->station;
+        $job->salary_type = $request->salary_type;
+        $job->salary_low = $request->salary_low;
+        $job->salary_high = $request->salary_high;
         $job->education = $request->education;
         $job->original_category = $request->original_category;
         $job->release = $request->release;

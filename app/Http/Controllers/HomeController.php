@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $jobs = Job::all();
         
-        return response()->view('sitemap', ['jobs' => $jobs])->header('Content-Type', 'text/xml');
+        return response()->view('indeed', ['jobs' => $jobs])->header('Content-Type', 'text/xml');
     }
     
     //個別ユーザー（会社）TOPページ表示
@@ -146,14 +146,17 @@ class HomeController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:191',
-            'gender' => 'required',
+            'gender' => 'required|string',
             'year' => 'required',
             'month' => 'required',
             'day' => 'required',
             'mail' => 'required|email',
             'tel' => 'required|numeric',
-            'zip' => 'required',
-            'address' => 'required',
+            'zip' => 'required|numeric',
+            'address' => 'required|string',
+            'carreer' => 'nullable|string',
+            'qualification' => 'nullable|string',
+            'myself' => 'nullable|string',
         ]);
 
         // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
@@ -219,15 +222,17 @@ class HomeController extends Controller
         // データを受け取る(postで飛んでくるのでsotreと同じ仕組み)
         $this->validate($request, [
             'name' => 'required|max:191',
-            'gender' => 'required',
+            'gender' => 'required|string',
             'year' => 'required',
             'month' => 'required',
             'day' => 'required',
             'mail' => 'required|email',
             'tel' => 'required|numeric',
-            'zip' => 'required',
-            'address' => 'required',
-            'myself' => 'required',
+            'zip' => 'required|numeric',
+            'address' => 'required|string',
+            'carreer' => 'nullable|string',
+            'qualification' => 'nullable|string',
+            'myself' => 'required|string',
         ]);
 
         // 画面にデータを表示する(ただのビューの表示なので createと同じ仕組み）)
@@ -279,8 +284,14 @@ class HomeController extends Controller
             
             if(count($recruiter) > 0) {
                 $send_mail = $recruiter->email;
+                $signature_name = $recruiter->name;
+                $signature_tel = $recruiter->tel;
+                $signature_address = $recruiter->address;
             } else {
                 $send_mail = $user->email;
+                $signature_name = $user->name;
+                $signature_tel = $user->tel;
+                $signature_address = $user->address;
             }
 
             if (is_null($job)) {
@@ -325,22 +336,24 @@ class HomeController extends Controller
         \Mail::send(new \App\Mail\EntryMail([
             'to' => $request->mail,
             'to_name' => $request->name,
-            'from' => $send_mail,
+            'from' => 'sender@feedjob.net',
             'from_name' => $user->company,
             'subject' => 'ご応募ありがとうございました',
-            'gender' => $request->gender,
-            'birthday' => $birthday,
+            'signature_name' => $signature_name,
+            'signature_mail' => $send_mail,
+            'signature_tel' => $signature_tel,
+            'signature_address' => $signature_address,
         ]));
 
         // 受信メール(データ受信)
         \Mail::send(new \App\Mail\EntryMail([
             'to' => $send_mail,
             'to_name' => $user->company,
-            'from' => $request->mail,
+            'from' => 'sender@feedjob.net',
             'from_name' => $request->name,
             'subject' => '採用サイトからの応募を受付けました',
             'gender' => $request->gender,
-            'birthday' => $birthday,
+            'from_mail' => $request->mail,
         ], 'from'));
         
         // 二重送信防止
