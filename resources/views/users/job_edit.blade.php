@@ -277,10 +277,10 @@
                                 <tr class="form-group @if(!empty($errors->first('recruiter'))) has-error @endif">
                                     <th><label for="recruiter" class="control-label">担当者</label></th>
                                     <td>
-                                        @if(count($recruiter) > 0)
+                                        @if(!is_null($rec_id))
                                         <p class="mb10">{{ $recruiter->name }}/{{ $recruiter->section }}</p>
                                         @endif
-                                        @if( count($recruiters) > 0 )
+                                        @if(!is_null($rec_id))
                                         <select class="form-control form-md" id="recruiter" name="recruiter">
                                             <option value=''>{{ $user->name }}／{{ $user->email }}</option>
                                             @foreach($recruiters as $recruiter)

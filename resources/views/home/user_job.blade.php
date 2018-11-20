@@ -201,7 +201,7 @@
                     <tr>
                         <th>連絡先</th>
                         <td>{{ $user->company }}<br>
-                            @if(count($recruiter) > 0)
+                            @if(!is_null($recruiter_id))
                             {{ $recruiter->zip }} {{ $recruiter->address }}<br>
                             TEL：{{ $recruiter->tel }}@if(!is_null($recruiter->section))／{{$recruiter->section}}@endif
                             @else
@@ -220,7 +220,7 @@
                     @endif
                 </div>
                 <div class="col-xs-12 text-center mb15 btn_tel">
-                    <a href="tel:@if(count($recruiter) > 0)<?php $contact = $recruiter->tel; echo str_replace(array('-', 'ー', '−', '―', '‐'), '', $contact); ?>@else<?php $contact = $user->tel; echo str_replace(array('-', 'ー', '−', '―', '‐'), '', $contact); ?>@endif" class="btn btn-primary btn-block btn-lg"><i class="fa fa-mobile"></i> 電話で問い合わせる</a>
+                    <a href="tel:@if(!is_null($recruiter_id))<?php $contact = $recruiter->tel; echo str_replace(array('-', 'ー', '−', '―', '‐'), '', $contact); ?>@else<?php $contact = $user->tel; echo str_replace(array('-', 'ー', '−', '―', '‐'), '', $contact); ?>@endif" class="btn btn-primary btn-block btn-lg"><i class="fa fa-mobile"></i> 電話で問い合わせる</a>
                 </div>
             </div>
         </div>

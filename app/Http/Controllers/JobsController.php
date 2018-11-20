@@ -185,6 +185,7 @@ class JobsController extends Controller
                     'job' => $job,
                     'recruiters' => $recruiters,
                     'recruiter' => $recruiter,
+                    'rec_id' => $rec_id,
                 ]);
             };
         }else {

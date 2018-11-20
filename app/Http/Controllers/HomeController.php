@@ -14,7 +14,7 @@ class HomeController extends Controller
     //TOPページ表示
     public function index()
     {
-        $jobs = Job::all();
+        $jobs = Job::where('release', 'release')->orderBy('created_at', 'desc')->get();
 
         return view('welcome', [
             'jobs' => $jobs,
@@ -24,7 +24,7 @@ class HomeController extends Controller
     //xmlファイル作成
     public function sitemap()
     {
-        $jobs = Job::all();
+        $jobs = Job::where('release', 'release')->orderBy('created_at', 'desc')->get();
         
         return response()->view('indeed', ['jobs' => $jobs])->header('Content-Type', 'text/xml');
     }
@@ -115,6 +115,7 @@ class HomeController extends Controller
             'user' => $user,
             'job' => $job,
             'recruiter' => $recruiter,
+            'recruiter_id' => $recruiter_id,
         ]);
     }
 
@@ -279,10 +280,10 @@ class HomeController extends Controller
 
         } else {
             $job = $user->jobs()->find($id);
-            $recruiter = $job->recruiter;
-            $recruiter = $user->recruiters()->where('id', $recruiter)->first();
+            $recruiter_id = $job->recruiter;
+            $recruiter = $user->recruiters()->where('id', $recruiter_id)->first();
             
-            if(count($recruiter) > 0) {
+            if(!is_null($recruiter_id)) {
                 $send_mail = $recruiter->email;
                 $signature_name = $recruiter->name;
                 $signature_tel = $recruiter->tel;

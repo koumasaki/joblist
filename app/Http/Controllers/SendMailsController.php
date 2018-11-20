@@ -139,10 +139,10 @@ class SendMailsController extends Controller
         $sendmail->sender = $request->sender;
         $sendmail->save();
         
-        $sender = $sendmail->sender;
-        $sender = $user->recruiters()->where('id', $sender)->first();
+        $sender_id = $sendmail->sender;
+        $sender = $user->recruiters()->where('id', $sender_id)->first();
         
-        if(count($sender) > 0) {
+        if(!is_null($sender_id)) {
             $signature_name = $sender->name;
             $signature_mail = $sender->email;
             $signature_tel = $sender->tel;
