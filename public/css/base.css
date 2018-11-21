@@ -47,11 +47,11 @@
 }
 #copy {
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
-    transform: translate(-50%,-40%);
-    -webkit-transform: translate(-50%,-40%);
-    -moz-transform: translate(-50%,-40%);
+    transform: translate(-50%,-45%);
+    -webkit-transform: translate(-50%,-45%);
+    -moz-transform: translate(-50%,-45%);
     font-family: "游明朝体", "Yu Mincho", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "MS P明朝", "MS PMincho", serif;
     font-size: 3.2vw;
     font-weight: normal;
@@ -332,10 +332,6 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-.main_title {
-    font-size: 10px;
-    padding: 2px 8px;
-}
 .catch_copy {
     font-size: 3.2vw;  
 }
@@ -349,11 +345,11 @@ footer {
     margin: 30px auto 0 auto;
 }
 #copy {
-    top: 35%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%,-35%);
-    -webkit-transform: translate(-50%,-35%);
-    -moz-transform: translate(-50%,-35%);
+    transform: translate(-50%,-40%);
+    -webkit-transform: translate(-50%,-40%);
+    -moz-transform: translate(-50%,-40%);
     font-size: 4.1vw;
 }
 

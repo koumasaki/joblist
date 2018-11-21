@@ -98,12 +98,12 @@ class HomeController extends Controller
             abort('404');
         } else {
             $job = $user->jobs()->find($id);
-            $recruiter_id = $job->recruiter;
-            $recruiter = $user->recruiters()->where('id', $recruiter_id)->first();
-
             if (is_null($job)) {
                 abort('404');
             }
+            $recruiter_id = $job->recruiter;
+            $recruiter = $user->recruiters()->where('id', $recruiter_id)->first();
+
         };
 
         // $job が公開か非公開か判別して　非公開だったら 「ページは存在しません」などのビューを表示

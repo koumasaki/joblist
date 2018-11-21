@@ -60,7 +60,7 @@
                                     <?php
                                         $year = date('Y')-15;
                                         $i = $year-55;
-                                        $year_data = ['' => '- 年 -'];
+                                        $year_data = ['' => '-年-'];
                                         for($i; $i<=$year; $i++) {
                                             $year_data[$i] = $i;
                                         }
@@ -69,7 +69,7 @@
                         	         年 
                     		        <?php 
                     		            $m = 1;
-                    		            $month = ['' => '- 月 -'];
+                    		            $month = ['' => '-月-'];
                                         for($m; $m<=12; $m++) {
                                             $month[$m] = $m;
                                         }
@@ -78,7 +78,7 @@
                         	         月 
                     		        <?php 
                     		            $d = 1;
-                    		            $day = ['' => '- 日 -'];
+                    		            $day = ['' => '-日-'];
                                         for($d; $d<=31; $d++) {
                                             $day[$d] = $d;
                                         }
@@ -94,21 +94,21 @@
                         <tr class="form-group @if(!empty($errors->first('mail'))) has-error @endif">
                             <th><label for="mail" class="control-label">メールアドレス<span class="fs13 red"> (※)</span></label></th>
                             <td>
-                                {!! Form::text('mail', old('mail'), ['class'=>'form-control form-md']) !!}
+                                {!! Form::email('mail', old('mail'), ['class'=>'form-control form-md']) !!}
                                 <span class="help-block-ent">{{$errors->first('mail')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('tel'))) has-error @endif">
                             <th><label for="tel" class="control-label">電話番号<span class="fs13 red"> (※)</span></label></th>
                             <td>
-                                {!! Form::text('tel', old('tel'), ['class'=>'form-control form-sm', 'placeholder'=>'※ハイフンなし']) !!}
+                                {!! Form::tel('tel', old('tel'), ['class'=>'form-control form-sm', 'placeholder'=>'※ハイフンなし']) !!}
                                 <span class="help-block-ent">{{$errors->first('tel')}}</span>
                             </td>
                         </tr>
                         <tr class="form-group @if(!empty($errors->first('zip'))) has-error @endif">
                             <th><label for="zip" class="control-label">郵便番号（7桁）<span class="fs13 red">(※)</span></label></th>
                             <td>
-                                {!! Form::text('zip', old('zip'), ['class'=>'form-control form-xs', 'placeholder'=>'※ハイフンなし', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address','address');"]) !!}
+                                {!! Form::number('zip', old('zip'), ['class'=>'form-control form-xs', 'placeholder'=>'※ハイフンなし', 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address','address');"]) !!}
                                 <span class="help-block-ent">{{$errors->first('zip')}}</span>
                             </td>
                         </tr>

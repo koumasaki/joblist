@@ -277,20 +277,26 @@
                                 <tr class="form-group @if(!empty($errors->first('recruiter'))) has-error @endif">
                                     <th><label for="recruiter" class="control-label">担当者</label></th>
                                     <td>
-                                        @if(!is_null($rec_id))
+                                        @if( count($recruiters) == 0 )
+                                        {{ $user->name }}／{{ $user->email }}<br>
+                                        <span class="fs13">※担当者を変更する場合は、先に担当者情報を追加してください。</span>
+                                        @elseif(!is_null($rec_id))
                                         <p class="mb10">{{ $recruiter->name }}/{{ $recruiter->section }}</p>
-                                        @endif
-                                        @if(!is_null($rec_id))
                                         <select class="form-control form-md" id="recruiter" name="recruiter">
                                             <option value=''>{{ $user->name }}／{{ $user->email }}</option>
                                             @foreach($recruiters as $recruiter)
                                                 <option value={{ $recruiter->id }}>{{ $recruiter->name }}／{{ $recruiter->email }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="fs13 red">※求人案件を編集する場合、担当者に変更がなくても必ずセレクトボックスより担当者を再度選択してください。</span>
+                                        <span class="fs13 red">※求人案件を編集する場合、担当者に変更がなくても必ずセレクトボックスより担当者を再度選択し直してください。</span>
                                         @else
-                                        {{ $user->name }}／{{ $user->email }}<br>
-                                        <span class="fs13">※担当者を変更する場合は、先に担当者情報を追加してください。</span>
+                                        <select class="form-control form-md" id="recruiter" name="recruiter">
+                                            <option value=''>{{ $user->name }}／{{ $user->email }}</option>
+                                            @foreach($recruiters as $recruiter)
+                                                <option value={{ $recruiter->id }}>{{ $recruiter->name }}／{{ $recruiter->email }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="fs13 red">※求人案件を編集する場合、担当者に変更がなくても必ずセレクトボックスより担当者を再度選択し直してください。</span>
                                         @endif
                                     </td>
                                 </tr>
