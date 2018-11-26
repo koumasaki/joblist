@@ -9,6 +9,7 @@ Route::get('/', 'HomeController@index')->name('company.index');
 
 //xmlファイル
 Route::get('/indeed.xml', 'HomeController@sitemap');
+Route::get('/sitemap.xml', 'HomeController@sitemap_google');
 
 // ログイン認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

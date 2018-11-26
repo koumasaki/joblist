@@ -41,15 +41,7 @@
                                 <tbody>
                                     <tr>
                                         <th>給与</th>
-                                        <td><?php 
-                            if (mb_strlen($job->salary) < 25) {
-                                $jobsalary = $job->salary;
-                                echo $jobsalary;
-                            } else {
-                                $jobsalary = mb_substr( $job->salary, 0, 25);
-                                echo $jobsalary. '...';
-                            }
-                             ?></td>
+                                        <td>{{ $job->simple_salary }}</td>
                                     </tr>
                                     <tr>
                                         <th>勤務地</th>

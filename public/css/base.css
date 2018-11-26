@@ -156,10 +156,18 @@
 }
 .job_flame_header h3 {
     margin: 0;
-    line-height: 100%;
+    line-height: 130%;
     font-size: 20px;
     font-weight: bold;
     color: #0059B2;
+}
+.job_status {
+    color: #fff;
+    background-color: #3399cc;
+    font-size: 13px;
+    margin-left: 5px;
+    padding: 4px 10px;
+    white-space: nowrap;
 }
 .job_flame_body {
     border-top: solid 1px #F6F6F6;

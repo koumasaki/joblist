@@ -10,7 +10,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/user"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a href="/user/entries">Dashboard</a>エントリー一覧</li>
+            <li><a href="/user/entries">エントリー一覧</a></li>
             <li class="active">新規メール作成</li>
         </ol>
     </section>

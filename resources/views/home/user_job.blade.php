@@ -202,10 +202,10 @@
                         <th>連絡先</th>
                         <td>{{ $user->company }}<br>
                             @if(!is_null($recruiter_id))
-                            {{ $recruiter->zip }} {{ $recruiter->address }}<br>
+                            〒{{ $recruiter->zip }} {{ $recruiter->address }}<br>
                             TEL：{{ $recruiter->tel }}@if(!is_null($recruiter->section))／{{$recruiter->section}}@endif
                             @else
-                            {{ $user->zip }} {{ $user->address }}<br>
+                            〒{{ $user->zip }} {{ $user->address }}<br>
                             TEL：{{ $user->tel }}@if(!is_null($user->section))／{{$user->section}}@endif
                             @endif
                         </td>

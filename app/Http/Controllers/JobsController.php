@@ -210,7 +210,6 @@ class JobsController extends Controller
             'benefit' => 'nullable|string',
             'add_title' => 'nullable|string',
             'add_body' => 'nullable|string',
-            'job_image' => 'file|image|dimensions:min_width=400',
             'entry_method' => 'required|string',
             'simple_form' => 'required',
             'job_category' => 'required',
@@ -227,6 +226,15 @@ class JobsController extends Controller
             'release' => 'required',
             'memo' => 'nullable|string',
         ]);
+        if( $request->job_name === null) {
+            $this->validate($request, [
+                'job_image' => 'nullable',  
+            ]);
+        } else {
+            $this->validate($request, [
+                'job_image' => 'file|image|dimensions:min_width=400',  
+            ]); 
+        }
 
         $job = Job::find($id);
         $job->job_name = $request->job_name;

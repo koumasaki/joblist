@@ -21,7 +21,16 @@ class HomeController extends Controller
         ]);
     }
 
-    //xmlファイル作成
+    //xmlファイル作成(Google)
+    public function sitemap_google()
+    {
+        $users = User::all();
+        $jobs = Job::where('release', 'release')->orderBy('created_at', 'desc')->get();
+        
+        return response()->view('sitemap', ['jobs' => $jobs, 'users' => $users])->header('Content-Type', 'text/xml');
+    }
+
+    //xmlファイル作成(Indeed)
     public function sitemap()
     {
         $jobs = Job::where('release', 'release')->orderBy('created_at', 'desc')->get();
